@@ -1,11 +1,13 @@
 ---
-title: "Elixir Error Solution: assign @conn not available in eex template. Available assigns: []"
-date: "2017-07-15"
-path: "/2017/07/15/elixir-error-solution-assign-conn-not-available-in-eex-template-available-assigns"
+title: 'Elixir Error Solution: assign @conn not available in eex template. Available assigns: []'
+date: '2017-07-15'
+path: '/2017/07/15/elixir-error-solution-assign-conn-not-available-in-eex-template-available-assigns'
 ---
 
 ## Problem
+
 I was breaking my Elixir templates into a subtemplate but I was getting the following error:
+
 ```
 assign @conn not available in eex template.
 
@@ -15,7 +17,8 @@ the parent template as they are not automatically forwarded.
 Available assigns: [:event]
 ```
 
-My parent template looked something like this: 
+My parent template looked something like this:
+
 ```elixir
 <h1>All Events</h1>
 <div class="list-group">
@@ -27,6 +30,7 @@ My parent template looked something like this:
 ```
 
 and my child template like this:
+
 ```elixir
 <p>
   <a href="<%= event_path @conn, :show, @event %>">
@@ -34,8 +38,11 @@ and my child template like this:
   </a>
 </p>
 ```
+
 ## Solution
-The solution is simple, pass the @conn to your child template like this: 
+
+The solution is simple, pass the @conn to your child template like this:
+
 ```elixir
 <h1>All Events</h1>
 <div class="list-group">
@@ -44,4 +51,5 @@ The solution is simple, pass the @conn to your child template like this:
     <% end %>
 </div>
 ```
-That is it, I hope I was able to help. 
+
+That is it, I hope I was able to help.
