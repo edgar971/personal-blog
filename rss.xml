@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Edgar Pino's Blog]]></title><description><![CDATA[I write about software, tech, and other random thoughts I have.]]></description><link>https://edgardev.com</link><generator>RSS for Node</generator><lastBuildDate>Sat, 22 Sep 2018 04:56:40 GMT</lastBuildDate><item><title><![CDATA[Moving my blog to Gatsby.js]]></title><description><![CDATA[Today, I decided to move my personal blog from Ghost to Gatsby.js and I love it.
+I spent about 30 minutes reading the documentation and…]]></description><link>https://edgardev.commoving-my-blog-to-gatsby-js</link><guid isPermaLink="false">https://edgardev.commoving-my-blog-to-gatsby-js</guid><pubDate>Thu, 20 Sep 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Today, I decided to move my personal blog from Ghost to Gatsby.js and I love it.
+I spent about 30 minutes reading the documentation and decided Gatsby.js was the way to go, especially now with v2 out.
+It’s built using tools and frameworks I already use like React.js, Node.js, and Prettier. There wasn’t much I needed to learn.&lt;/p&gt;
+&lt;h3&gt;What is Gatsby.js&lt;/h3&gt;
+&lt;p&gt;The Github description says it well:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Gatsby.js is a Blazing fast modern site generator for React.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;It allows developers to create static sites using React with multiple data sources via GraphQL.&lt;/p&gt;
+&lt;p&gt;Some of the features I like:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Performance by default with code splitting, image optimization, and lazy-loading.&lt;/li&gt;
+&lt;li&gt;Multiple data sources. You can pull data from markdown files, REST APIs, and pretty much any other data source. This is all made accessible via GraphQL.&lt;/li&gt;
+&lt;li&gt;Modern and flexible architecture. Gatsby uses React.js and GraphQL at its core that allows developers to create almost any type of website. It also includes Prettier and ESLint to help you follow the best practices and patterns.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Development Experience&lt;/h3&gt;
+&lt;p&gt;One of the main reasons I decided to use Gatsby.js was for its development experience.
+It offers a great CLI to easily bootstrap new projects along with starter templates. I used the Gatsby starter template for creating a blog which had everything I needed out of the box. Prettier and ESLint come pre-installed and configured which is great for code consistency and applying best patterns.&lt;/p&gt;
+&lt;p&gt;The only thing I needed to do was transfer over my old blog posts from Ghost. That was easy to do since they were already in markdown.&lt;/p&gt;
+&lt;h3&gt;Useful Links&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.gatsbyjs.org/&quot;&gt;Gatsby.js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.mediacurrent.com/what-is-gatsby.js/&quot;&gt;What is Gatsby.js&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content:encoded></item><item><title><![CDATA[Number Predictor using Tensorflow.js and MNIST dataset]]></title><description><![CDATA[I recently starting learning Tensorflow.js to create machine learning models on the browser. It took me a few weeks to learn the API but I…]]></description><link>https://edgardev.com/2018/08/09/number-predictor-using-tensorflow-js-and-mnist-dataset/</link><guid isPermaLink="false">https://edgardev.com/2018/08/09/number-predictor-using-tensorflow-js-and-mnist-dataset/</guid><pubDate>Thu, 09 Aug 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I recently starting learning Tensorflow.js to create machine learning models on the browser. It took me a few weeks to learn the API but I finally got something working.&lt;/p&gt;
+&lt;p&gt;The demo is a simple number predictor demo built using a &lt;a href=&quot;https://js.tensorflow.org/&quot;&gt;Tensorflow.js&lt;/a&gt; model trained on the &lt;a href=&quot;http://yann.lecun.com/exdb/mnist/&quot;&gt;MNIST&lt;/a&gt; dataset.
+&lt;img src=&quot;https://camo.githubusercontent.com/3feb47be5068f7c1ea369d8ed5f714d625b43fde/68747470733a2f2f6d656469612e67697068792e636f6d2f6d656469612f333438656d5876714b4d4e585a484a327a432f67697068792e676966&quot; width=&quot;100%&quot; alt=&quot;project demo&quot;&gt;&lt;/p&gt;
+&lt;p&gt;There are two models in this example. One that was already trained locally on my computer and the browser model which is train right on your browser. I was very impressed by the accuracy of the browser trained model. I was able to get about 95% accuracy in some cases. I might create a tutorial but for now here’s a link to the &lt;a href=&quot;https://edgar971.github.io/number-predictor/&quot;&gt;demo&lt;/a&gt; and &lt;a href=&quot;https://github.com/edgar971/number-predictor&quot;&gt;source code&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Model Architecture&lt;/h2&gt;
+&lt;p&gt;A Convolutional Neural Network (CNN) with 5 layers, 1 input 3 hidden and 1 for output. See code for more on activation function and other info on the model.&lt;/p&gt;
+&lt;h2&gt;General Architecture&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Load the MNIST dataset if training the model in the browser.&lt;/li&gt;
+&lt;li&gt;Load the pre-trained model or the browser trained model.&lt;/li&gt;
+&lt;li&gt;Take the input from the canvas element and do some processing to the pixels.&lt;/li&gt;
+&lt;li&gt;Take the input and run it throw the trained model.&lt;/li&gt;
+&lt;li&gt;Take the predictions and determine which one has the higher probability.&lt;/li&gt;
+&lt;li&gt;Display the highest predicted number.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Final Thoughts&lt;/h2&gt;
+&lt;p&gt;Overall I was very impressed by Tensorflow.js and the accuracy I got considering that it was running on the browser. One other thing to mention is that you don’t have to train your own model. You can use a pre-trained model for object detection, image caption, and more. The API is very simple to use and learn.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Resizing Images In Elixir with Mogrify]]></title><description><![CDATA[I’ve been working on a simple Elixir and Phoenix web app that  extracts text found in images  and I ran into a problem, people were…]]></description><link>https://edgardev.com/2018/04/08/resizing-images-in-elixir</link><guid isPermaLink="false">https://edgardev.com/2018/04/08/resizing-images-in-elixir</guid><pubDate>Sun, 08 Apr 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I’ve been working on a simple Elixir and Phoenix web app that &lt;a href=&quot;https://image-to-text.edgardev.com/&quot;&gt;extracts text found in images&lt;/a&gt; and I ran into a problem, people were uploading large images. I only needed images that were around 1200x1200 pixels.&lt;/p&gt;
+&lt;p&gt;I did some Googling around and I stumbled across &lt;a href=&quot;https://github.com/route/mogrify&quot;&gt;Mogrify&lt;/a&gt;, a simple Elixir library to process images. Under the hood it uses &lt;a href=&quot;https://www.imagemagick.org/script/index.php&quot;&gt;ImageMagick&lt;/a&gt;, a commandline tool for displaying, converting, and editing raster image and vector image files.&lt;/p&gt;
+&lt;h2&gt;Using Mogrify&lt;/h2&gt;
+&lt;p&gt;Mogrify is simple and easy to use and the only requirement is to have ImageMagick installed on your computer. See &lt;a href=&quot;https://www.imagemagick.org/script/install-source.php&quot;&gt;installation instructions&lt;/a&gt; for more info.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Add &lt;code class=&quot;language-text&quot;&gt;{:mogrify, &amp;quot;~&amp;gt; 0.5.6&amp;quot;}&lt;/code&gt; to your &lt;code class=&quot;language-text&quot;&gt;mix.exs&lt;/code&gt; file and run &lt;code class=&quot;language-text&quot;&gt;mix deps.get&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Import it on the module you intend to use it on. Here’s how my module looks like:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; ImgToTxt&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Utils&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Image &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+ &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Mogrify
+
+ &lt;span class=&quot;token attribute variable&quot;&gt;@doc&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&quot;
+ Resize images given imagePath, width, height, and optional Mogrify opts
+ &quot;&quot;&quot;&lt;/span&gt;
+ &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; resize&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;imagePath&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; width&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; height&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opts &lt;span class=&quot;token operator&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+   &lt;span class=&quot;token comment&quot;&gt;# Continue reading&lt;/span&gt;
+ &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To resize images you first &lt;code class=&quot;language-text&quot;&gt;open&lt;/code&gt; the file by give it the path to the image. When calling &lt;code class=&quot;language-text&quot;&gt;open&lt;/code&gt;, it should return something like:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;iex&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;3&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; Mogrify.open&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;test/assets/test.png&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+%Mogrify.Image&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+ animated: false,
+ dirty: %&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;,
+ ext: &lt;span class=&quot;token string&quot;&gt;&quot;.png&quot;&lt;/span&gt;,
+ format: nil,
+ frame_count: 1,
+ height: nil,
+ operations: &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;,
+ path: &lt;span class=&quot;token string&quot;&gt;&quot;img_to_txt/test/assets/test.png&quot;&lt;/span&gt;,
+ width: nil
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now, let’s add that to our function&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; resize&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;imagePath&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; width&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; height&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opts &lt;span class=&quot;token operator&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+   open&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;imagePath&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now that we have our file opened, let’s resize it. Mogrify provides the following functions to resize images: &lt;a href=&quot;https://hexdocs.pm/mogrify/Mogrify.html#resize/2&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;resize&lt;/code&gt;&lt;/a&gt;, &lt;a href=&quot;https://hexdocs.pm/mogrify/Mogrify.html#resize_to_fill/2&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;resize_to_fill&lt;/code&gt;&lt;/a&gt;, and &lt;a href=&quot;https://hexdocs.pm/mogrify/Mogrify.html#resize_to_limit/2&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;resize_to_limit&lt;/code&gt;&lt;/a&gt;. I choose the &lt;code class=&quot;language-text&quot;&gt;resize_to_limit&lt;/code&gt; because it will resize the image to fit within the specified dimensions while retaining the original aspect ratio. It will also only resize the image if it is larger than the specified dimensions. Let’s add that to our function:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; resize&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;imagePath&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; width&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; height&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opts &lt;span class=&quot;token operator&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+   open&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;imagePath&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; resize_to_limit&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;~s(&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token delimiter punctuation&quot;&gt;#{&lt;/span&gt;width&lt;span class=&quot;token delimiter punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;x&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token delimiter punctuation&quot;&gt;#{&lt;/span&gt;height&lt;span class=&quot;token delimiter punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The last thing is to save our resized image by using the &lt;code class=&quot;language-text&quot;&gt;save&lt;/code&gt; function. Mogrify will save the image on a temporary file. You can change that by passing in the &lt;code class=&quot;language-text&quot;&gt;path&lt;/code&gt; as an option. See &lt;a href=&quot;https://hexdocs.pm/mogrify/Mogrify.html#save/2&quot;&gt;docs&lt;/a&gt; for more info. Lets add that to our function:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; resize&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;imagePath&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; width&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; height&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opts &lt;span class=&quot;token operator&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  open&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;imagePath&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; resize_to_limit&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;~s(&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token delimiter punctuation&quot;&gt;#{&lt;/span&gt;width&lt;span class=&quot;token delimiter punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;x&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token delimiter punctuation&quot;&gt;#{&lt;/span&gt;height&lt;span class=&quot;token delimiter punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; save&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;opts&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We are done, I hope this was helpful and feel free to comment.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Elixir Error Solution: assign @conn not available in eex template. Available assigns: []]]></title><description><![CDATA[Problem I was breaking my Elixir templates into a subtemplate but I was getting the following error: My parent template looked something…]]></description><link>https://edgardev.com/2017/07/15/elixir-error-solution-assign-conn-not-available-in-eex-template-available-assigns</link><guid isPermaLink="false">https://edgardev.com/2017/07/15/elixir-error-solution-assign-conn-not-available-in-eex-template-available-assigns</guid><pubDate>Sat, 15 Jul 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Problem&lt;/h2&gt;
+&lt;p&gt;I was breaking my Elixir templates into a subtemplate but I was getting the following error:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;assign @conn not available in eex template.
+
+Please make sure all proper assigns have been set. If this
+is a child template, ensure assigns are given explicitly by
+the parent template as they are not automatically forwarded.
+Available assigns: [:event]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;My parent template looked something like this:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&amp;lt;h1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;All Events&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;h1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;div class&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;list-group&quot;&lt;/span&gt;&gt;
+
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; event &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;token attribute variable&quot;&gt;@events&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; render &lt;span class=&quot;token string&quot;&gt;&quot;summary.html&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;event:&lt;/span&gt; event &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and my child template like this:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&amp;lt;p&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;a href&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;&amp;lt;%= event_path @conn, :show, @event %&gt;&quot;&lt;/span&gt;&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token attribute variable&quot;&gt;@event&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;title &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;small&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token attribute variable&quot;&gt;@event&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;location &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;small&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;a&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;p&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Solution&lt;/h2&gt;
+&lt;p&gt;The solution is simple, pass the @conn to your child template like this:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&amp;lt;h1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;All Events&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;h1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;div class&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;list-group&quot;&lt;/span&gt;&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; event &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;token attribute variable&quot;&gt;@events&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; render &lt;span class=&quot;token string&quot;&gt;&quot;summary.html&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;event:&lt;/span&gt; event&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;conn:&lt;/span&gt; &lt;span class=&quot;token attribute variable&quot;&gt;@conn&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;That is it, I hope I was able to help.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Simple CORS in AWS Lambda - Serverless Architecture]]></title><description><![CDATA[Problem or When calling an AWS Lambda function via the API Gateway from the front-end using jQuery or other Javascript frameworks. Solution…]]></description><link>https://edgardev.com/2017/01/24/simple-cors-in-aws-lambda-serverless-architecture</link><guid isPermaLink="false">https://edgardev.com/2017/01/24/simple-cors-in-aws-lambda-serverless-architecture</guid><pubDate>Tue, 24 Jan 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Problem&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at https://12gddshj.execute-api.us-east-1.amazonaws.com/dev/api/email/send. (Reason: CORS header &amp;#39;Access-Control-Allow-Origin&amp;#39; missing).&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;or&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;XMLHttpRequest cannot load https://12gddshj.execute-api.us-east-1.amazonaws.com/dev/api/email/send. No &amp;#39;Access-Control-Allow-Origin&amp;#39; header is present on the requested resource. Origin &amp;#39;http://localhost:8000&amp;#39; is therefore not allowed access. The response had HTTP status code 400.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;When calling an AWS Lambda function via the API Gateway from the front-end using jQuery or other Javascript frameworks.&lt;/p&gt;
+&lt;h2&gt;Solution&lt;/h2&gt;
+&lt;p&gt;Add the &lt;code class=&quot;language-text&quot;&gt;Access-Control-Allow-Origin&lt;/code&gt; header as part of the response.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;const response = {
+  statusCode: 200,
+  headers: {
+    &amp;quot;Access-Control-Allow-Origin&amp;quot; : &amp;quot;*&amp;quot; // Required for CORS support to work
+  },
+  body: JSON.stringify({
+      message: body
+  }),
+};
+
+callback(null, response);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Or with the domain you are making the requests from:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;const response = {
+  statusCode: 200,
+  headers: {
+    &amp;quot;Access-Control-Allow-Origin&amp;quot; : &amp;quot;www.example.com&amp;quot; // Required for CORS support to work
+  },
+  body: JSON.stringify({
+      message: body
+  }),
+};
+
+callback(null, response);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;Resources&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://serverless.com/framework/docs/providers/aws/events/apigateway/&quot;&gt;API Gateway&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/serverless/serverless/issues/1955&quot;&gt;Github Issue&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Basic Authentication with Lumen]]></title><description><![CDATA[The Problem The other day I was trying to create a simple admin page without having to rely on a database and all of the other stuff. I knew…]]></description><link>https://edgardev.com/2016/02/02/basic-authentication-with-lumen-2</link><guid isPermaLink="false">https://edgardev.com/2016/02/02/basic-authentication-with-lumen-2</guid><pubDate>Tue, 02 Feb 2016 00:00:00 GMT</pubDate><content:encoded>&lt;h4&gt;The Problem&lt;/h4&gt;
+&lt;p&gt;The other day I was trying to create a simple admin page without having to rely on a database and all of the other stuff. I knew how to do it with with an &lt;code class=&quot;language-text&quot;&gt;.htaccess&lt;/code&gt; file but since I was using Lumen it wasn’t quite going to work. I have to admit that I’m new to the Laravel/Lumen but so far I’ve come to really like it and I enjoy working with it. The solution I come up with is using Middleware.&lt;/p&gt;
+&lt;h4&gt;The Solution&lt;/h4&gt;
+&lt;p&gt;The first thing we need to do is to uncomment the following lines inside the &lt;code class=&quot;language-text&quot;&gt;bootstrap/app.php&lt;/code&gt; file.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;//Uncomment
+  $app-&amp;gt;withEloquent();
+  $app-&amp;gt;withFacades();&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Lets add the middleware to the same file.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$app-&amp;gt;routeMiddleware([
+  &amp;#39;BasicAuth&amp;#39; =&amp;gt; &amp;#39;App\Http\Middleware\BasicAuthMiddleware&amp;#39;,
+]);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Keep in mind that &lt;code class=&quot;language-text&quot;&gt;&amp;#39;BasicAuth&amp;#39; =&amp;gt; &amp;#39;App\Http\Middleware\BasicAuthMiddleware&amp;#39;&lt;/code&gt; is our custom Middleware.&lt;/p&gt;
+&lt;p&gt;Next we have to create our Middleware inside &lt;code class=&quot;language-text&quot;&gt;app/Http/Middleware/&lt;/code&gt;. Let’s name is &lt;code class=&quot;language-text&quot;&gt;BasicAuthMiddleware.php&lt;/code&gt; and this is what to put inside.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;?php
+
+  namespace App\Http\Middleware;
+
+  use Closure;
+
+  class BasicAuthMiddleware
+  {
+      /**
+        * Handle an incoming request.
+        *
+        * @param  \Illuminate\Http\Request  $request
+        * @param  \Closure  $next
+        * @return mixed
+        */
+      public function handle($request, Closure $next) {
+          if($request-&amp;gt;getUser() != &amp;#39;admin&amp;#39; || $request-&amp;gt;getPassword() != &amp;#39;PasswordHere!&amp;#39;) {
+              $headers = array(&amp;#39;WWW-Authenticate&amp;#39; =&amp;gt; &amp;#39;Basic&amp;#39;);
+              return response(&amp;#39;Admin Login&amp;#39;, 401, $headers);
+          }
+          return $next($request);
+      }
+  }&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This just simply takes in any request, checks the entered username and password, if they match then the user sees the page, otherwise ask again.&lt;/p&gt;
+&lt;p&gt;The last thing we need to do is inject our custom Middleware with our routes inside the &lt;code class=&quot;language-text&quot;&gt;app/HTTP/routes.php&lt;/code&gt; file. Here is a basic example.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$app-&amp;gt;group([&amp;#39;prefix&amp;#39;=&amp;gt;&amp;#39;admin/&amp;#39;, &amp;#39;middleware&amp;#39; =&amp;gt; &amp;#39;BasicAuth&amp;#39;, &amp;#39;namespace&amp;#39; =&amp;gt; &amp;#39;App\Http\Controllers&amp;#39;], function($app) {
+    $app-&amp;gt;get(&amp;#39;/&amp;#39;, &amp;#39;AdminController@index&amp;#39;);
+    $app-&amp;gt;get(&amp;#39;/manage&amp;#39;, &amp;#39;AdminController@index&amp;#39;);
+});&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;That is all we need to get Basic Authentication working.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Useful Links&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HTTP Middleware &lt;a href=&quot;https://lumen.laravel.com/docs/5.2/middleware&quot;&gt;https://lumen.laravel.com/docs/5.2/middleware&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Routing &lt;a href=&quot;https://lumen.laravel.com/docs/5.2/routing&quot;&gt;https://lumen.laravel.com/docs/5.2/routing&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item></channel></rss>
