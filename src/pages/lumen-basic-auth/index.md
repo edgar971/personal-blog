@@ -75,6 +75,3 @@ Useful Links
 
 - HTTP Middleware https://lumen.laravel.com/docs/5.2/middleware
 - Routing https://lumen.laravel.com/docs/5.2/routing
-
-
-
