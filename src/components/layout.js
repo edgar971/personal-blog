@@ -54,8 +54,9 @@ class Template extends React.Component {
     }
     return (
       <React.Fragment>
-        <div style={{ background: '#F55', width: '100%', height: rhythm(.07) }}>
-        </div>
+        <div
+          style={{ background: '#F55', width: '100%', height: rhythm(0.07) }}
+        />
         <div
           style={{
             marginLeft: 'auto',
