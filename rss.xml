@@ -1,4 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Edgar Pino's Blog]]></title><description><![CDATA[I write about software, tech, and other random thoughts I have.]]></description><link>https://edgardev.com</link><generator>RSS for Node</generator><lastBuildDate>Sat, 22 Sep 2018 04:56:40 GMT</lastBuildDate><item><title><![CDATA[Moving my blog to Gatsby.js]]></title><description><![CDATA[Today, I decided to move my personal blog from Ghost to Gatsby.js and I love it.
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Edgar Pino's Blog]]></title><description><![CDATA[I write about software, tech, and other random thoughts I have.]]></description><link>https://edgardev.com</link><generator>RSS for Node</generator><lastBuildDate>Mon, 24 Sep 2018 18:44:10 GMT</lastBuildDate><item><title><![CDATA[Custom URLs in Gatsby Blog Posts]]></title><description><![CDATA[Problem When moving my blog from Ghost to Gatsby I ran into an issue. I wanted to have custom links instead of the default directory name…]]></description><link>https://edgardev.com/custom-urls-in-gatsby-blog-posts/</link><guid isPermaLink="false">https://edgardev.com/custom-urls-in-gatsby-blog-posts/</guid><pubDate>Fri, 21 Sep 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Problem&lt;/h2&gt;
+&lt;p&gt;When moving my blog from Ghost to Gatsby I ran into an issue. I wanted to have custom links instead of the default directory name inside of pages. Something like &lt;code class=&quot;language-text&quot;&gt;/2018-01-12/path-to-a-page&lt;/code&gt; instead of &lt;code class=&quot;language-text&quot;&gt;/path-to-a-page&lt;/code&gt;. I did search but I didn’t find a solution that would support both types of links.&lt;/p&gt;
+&lt;h2&gt;Solution&lt;/h2&gt;
+&lt;p&gt;My solution was simple and not hard to implement. We are going to support adding &lt;code class=&quot;language-text&quot;&gt;path&lt;/code&gt; option to the frontmatter, that is the content between the three hyphens.&lt;/p&gt;
+&lt;p&gt;Something like this:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;---
+title: &amp;#39;Custom URLs in Gatsby Blog Posts&amp;#39;
+date: &amp;#39;2018-09-21&amp;#39;
+path: &amp;#39;/custom/path/to/blog-post&amp;#39;
+---&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We also want to support the default way of generating paths which are directory based.&lt;/p&gt;
+&lt;p&gt;The first thing we are going to do is update our &lt;code class=&quot;language-text&quot;&gt;onCreateNode&lt;/code&gt; in the &lt;code class=&quot;language-text&quot;&gt;gatsby-node.js&lt;/code&gt; to support the &lt;code class=&quot;language-text&quot;&gt;path&lt;/code&gt; field in our frontmatter.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; path
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;node&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;frontmatter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;path&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  path &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; node&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;frontmatter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;path
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  path &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createFilePath&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; node&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; getNode &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We first check if the node has the &lt;code class=&quot;language-text&quot;&gt;path&lt;/code&gt; field and set the path if it is.
+We use the default way of creating the path via the &lt;code class=&quot;language-text&quot;&gt;createFilePath&lt;/code&gt; function as a fallback.&lt;/p&gt;
+&lt;p&gt;Here’s the full &lt;code class=&quot;language-text&quot;&gt;onCreateNode&lt;/code&gt; function inside &lt;code class=&quot;language-text&quot;&gt;gatsby-node.js&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;exports&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;onCreateNode&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; node&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; actions&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; getNode &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; createNodeField &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; actions
+
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;node&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;internal&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;type &lt;span class=&quot;token operator&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token string&quot;&gt;`MarkdownRemark`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; path
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;node&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;frontmatter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;path&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      path &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; node&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;frontmatter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;path
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      path &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createFilePath&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; node&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; getNode &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token function&quot;&gt;createNodeField&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      name&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token string&quot;&gt;`slug`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      node&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      value&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; path&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;That’s all you have to do to support custom URLs in Gatsby. Check out my &lt;a href=&quot;https://github.com/edgar971/personal-blog/&quot;&gt;blog repo&lt;/a&gt; to see my setup.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Moving my blog to Gatsby.js]]></title><description><![CDATA[Today, I decided to move my personal blog from Ghost to Gatsby.js and I love it.
 I spent about 30 minutes reading the documentation and…]]></description><link>https://edgardev.commoving-my-blog-to-gatsby-js</link><guid isPermaLink="false">https://edgardev.commoving-my-blog-to-gatsby-js</guid><pubDate>Thu, 20 Sep 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Today, I decided to move my personal blog from Ghost to Gatsby.js and I love it.
 I spent about 30 minutes reading the documentation and decided Gatsby.js was the way to go, especially now with v2 out.
 It’s built using tools and frameworks I already use like React.js, Node.js, and Prettier. There wasn’t much I needed to learn.&lt;/p&gt;
@@ -94,7 +133,211 @@ It offers a great CLI to easily bootstrap new projects along with starter templa
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;We are done, I hope this was helpful and feel free to comment.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Elixir Error Solution: assign @conn not available in eex template. Available assigns: []]]></title><description><![CDATA[Problem I was breaking my Elixir templates into a subtemplate but I was getting the following error: My parent template looked something…]]></description><link>https://edgardev.com/2017/07/15/elixir-error-solution-assign-conn-not-available-in-eex-template-available-assigns</link><guid isPermaLink="false">https://edgardev.com/2017/07/15/elixir-error-solution-assign-conn-not-available-in-eex-template-available-assigns</guid><pubDate>Sat, 15 Jul 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Problem&lt;/h2&gt;
+&lt;p&gt;We are done, I hope this was helpful and feel free to comment.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Heroku 16 Imagemagick Buildpack]]></title><description><![CDATA[Problem I’m working on a project that requires  imagemagick  to work on the Heroku 16 stack. When using the  buildpack , I get the following…]]></description><link>https://edgardev.com/2018/04/08/imagemagick-heroku-buildpack</link><guid isPermaLink="false">https://edgardev.com/2018/04/08/imagemagick-heroku-buildpack</guid><pubDate>Sun, 08 Apr 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Problem&lt;/h2&gt;
+&lt;p&gt;I’m working on a project that requires &lt;a href=&quot;https://www.imagemagick.org/script/index.php&quot;&gt;imagemagick&lt;/a&gt; to work on the Heroku 16 stack. When using the &lt;a href=&quot;https://github.com/ello/heroku-buildpack-imagemagick&quot;&gt;buildpack&lt;/a&gt;, I get the following error:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;libgvc.so.6: cannot open shared object file: No such file or directory&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Solution&lt;/h2&gt;
+&lt;p&gt;I was able to fix the problem by including the &lt;a href=&quot;https://github.com/ello/heroku-buildpack-imagemagick&quot;&gt;GraphViz&lt;/a&gt; buildpack. In order to get Imagemagick working on Heroku-16 you need to add the &lt;a href=&quot;https://github.com/ello/heroku-buildpack-imagemagick&quot;&gt;imagemagick&lt;/a&gt; and &lt;a href=&quot;https://github.com/ello/heroku-buildpack-imagemagick&quot;&gt;GraphViz&lt;/a&gt; buildpacks to your project.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Understading K-Means]]></title><description><![CDATA[K-means is a clustering algorithm used to categorize data that is unlabeled. It is a type of unsupervised learning (data without categories…]]></description><link>https://edgardev.com/2017/08/23/understading-k-means</link><guid isPermaLink="false">https://edgardev.com/2017/08/23/understading-k-means</guid><pubDate>Wed, 23 Aug 2017 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;K-means is a clustering algorithm used to categorize data that is unlabeled. It is a type of unsupervised learning (data without categories or groups). The goal is simply to find the groups in the data defined by K. The algorithm works by iteratively assigning each data point to one of the K groups based on the features provided.&lt;/p&gt;
+&lt;p&gt;Some of the use cases for K-Means are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pattern recognition&lt;/li&gt;
+&lt;li&gt;Classification analysis&lt;/li&gt;
+&lt;li&gt;Artificial Intelligence&lt;/li&gt;
+&lt;li&gt;Image processing&lt;/li&gt;
+&lt;li&gt;Machine vision&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Step 1: Choose the number of K of clusters.&lt;/h3&gt;
+&lt;p&gt;We will select 2 for this example so K = 2.
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/step1-6cc3ead7bc1f9981a9365e49175f3189-c2a76.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 61.63682864450127%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAIAAADtbgqsAAAACXBIWXMAAAsSAAALEgHS3X78AAAA/ElEQVQoz32R646EIAyFff939NeaKG5c7lBu4x4hY8Qdt2nIKfJ5WhhyLjmVvbzOfCHfse97KZe6j0G7sP6Yeqj7gJ0YYwgBQkrpnIO4wyElof0NhltjOOeihvf+A0wxcdXBZ58ppZyzUuqp8ytcrnNihaHWGmKapr+2HXximLNpkG1m+P/jfFwGEaFPXNK6rk1IJcHP8/zRtoO3bbPWYosxBgZl83yy7duuR5eFodVS22ZsHcfxmKW+fZf1go6nkoYajJro+FEL6FLy/hAHrBx9LcK6oDRpQ9ZFrC2NDae+pjG0CUshDZbiN7feJ2BI40ITN31N56JQPsT0Cyjev+aFS/ypAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Step 1&quot;
+        title=&quot;&quot;
+        src=&quot;/static/step1-6cc3ead7bc1f9981a9365e49175f3189-fb8a0.png&quot;
+        srcset=&quot;/static/step1-6cc3ead7bc1f9981a9365e49175f3189-1a291.png 148w,
+/static/step1-6cc3ead7bc1f9981a9365e49175f3189-2bc4a.png 295w,
+/static/step1-6cc3ead7bc1f9981a9365e49175f3189-fb8a0.png 590w,
+/static/step1-6cc3ead7bc1f9981a9365e49175f3189-c2a76.png 782w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3&gt;Step 2: Select at random K points.&lt;/h3&gt;
+&lt;p&gt;In this case we select the points highlighted in blue and red.
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/step2-111d8b49a79bf5be32a805a2a4522e62-66f68.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 55.080213903743314%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAAsSAAALEgHS3X78AAABDElEQVQoz4WRSU7EQAxFc/97wYIDILEPm0CGmjzUyE+l6QDdLSyX5Sr75VvOkEohTbXVcuO1tR7r3Sp8II3T4hv6Sqm17qcbruu24t0HvyzLteGnDZKy8dJr+721E2ZmYM65W+yEN8etQ2iRdOnLORtjkFhrU0r/wKC95ufRHuIHjGfEGGO7jvRIGdH5ACkkqjrPM2aG7F3yFzxNH1AIIRizbYFE9kUccH1gO7x2OOcCtc95phDc26sIj+M7draX+sZO/17foCnbvm0YRIgJezcvTyqM+dHY7tkF9hLHyXhWHEfqOeJbPhVHkSTboDbIH18M5a4+SEyrIdHMklgic9wTUiR05Dfugh5//gsWJITiPVhQDQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Step 2&quot;
+        title=&quot;&quot;
+        src=&quot;/static/step2-111d8b49a79bf5be32a805a2a4522e62-fb8a0.png&quot;
+        srcset=&quot;/static/step2-111d8b49a79bf5be32a805a2a4522e62-1a291.png 148w,
+/static/step2-111d8b49a79bf5be32a805a2a4522e62-2bc4a.png 295w,
+/static/step2-111d8b49a79bf5be32a805a2a4522e62-fb8a0.png 590w,
+/static/step2-111d8b49a79bf5be32a805a2a4522e62-66f68.png 748w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3&gt;Step 3: Assign each data point to the closest centroid&lt;/h3&gt;
+&lt;p&gt;One way we can go about doing this is by drawing a line from the blue and red points. We then draw a perpendicular line between the two points.
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/step3-e127cbacb44a7f42453728594049b5a6-caca9.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 54.11140583554377%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAAsSAAALEgHS3X78AAABGElEQVQoz4WS22rDMAyG+/6vtqvBrtaLQksYTtLGtQ4+25WTEZqso0IEIeuzpN85lFLI+pRz+d/qbLnkkMJz/lBrUVcIMUmwAwCAmSUYh4G9w8D+LzyBXeH6BDvnLNt+6NEzeSudt/cvsOEVlgXivILACGAYbqgBoe4G28EL8NGZy9RGjTmpaUBHMUSZ/w0sQWNivnQ/HNhGN96uaICIXpK/8M2wTCraiDBSdzyflNZ3wGVtRHwDS+ecswijrkqw4fvIvdIGlFJCtrNSNj7rInDVaFPKy2OiMfI1X598PpHzInd9ZWvn2vX3yVhkD+TZRRCVQkIfyTaX5M41OCkWsI09ajbk0Qb51SRLNiA74lbRgpbfeCue4QcAFIMw8Z7Z7wAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Step 3&quot;
+        title=&quot;&quot;
+        src=&quot;/static/step3-e127cbacb44a7f42453728594049b5a6-fb8a0.png&quot;
+        srcset=&quot;/static/step3-e127cbacb44a7f42453728594049b5a6-1a291.png 148w,
+/static/step3-e127cbacb44a7f42453728594049b5a6-2bc4a.png 295w,
+/static/step3-e127cbacb44a7f42453728594049b5a6-fb8a0.png 590w,
+/static/step3-e127cbacb44a7f42453728594049b5a6-caca9.png 754w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3&gt;Step 4: Compute and place the new centroid of each cluster.&lt;/h3&gt;
+&lt;p&gt;In this step we need to find where the new centroid for each cluster is located. We can do so by imagining the current centroids are weightless but no the other points. We can then find the center of gravity (where most of the points are located) to pin point the new centroid.
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/step4-563243c117bc9093dfb2ecde03c5096b-d47ca.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 57.599999999999994%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAIAAADtbgqsAAAACXBIWXMAAAsSAAALEgHS3X78AAABEklEQVQoz41S226DMAzN/3/PXvYT0x73tl6EikqBNE6MnQupCbBWE0yzrMiJc3J8HCsfYkpp3LKcx5LJYpsXVN0CcfiVlo086cq5pdij38QrDYOQz6lUPBcujql1fHNeUxx83ORWnUGecnmuT1YfE5If2Icwwdhh3tGl+gKekSfDXzfZekACCg1OZcPxGIi2y+5XZjFN4XCnOQ4AVF8i87hDu4BFc0xj51gw1x4cDl5r7LqAaM/nyLTb7ScYWfqF51MEMN8Hc6k9QIpx3EG+lF00u6qS9nBzrd/f2Nr280PU/gUuX5Xyq4WQ0M6TkXdsAVeNaTqngXozLC6x5Sm44/Nwdbn5M1eK2MuPiuz/O68T/QC7578+lWfZ+gAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Step 4&quot;
+        title=&quot;&quot;
+        src=&quot;/static/step4-563243c117bc9093dfb2ecde03c5096b-fb8a0.png&quot;
+        srcset=&quot;/static/step4-563243c117bc9093dfb2ecde03c5096b-1a291.png 148w,
+/static/step4-563243c117bc9093dfb2ecde03c5096b-2bc4a.png 295w,
+/static/step4-563243c117bc9093dfb2ecde03c5096b-fb8a0.png 590w,
+/static/step4-563243c117bc9093dfb2ecde03c5096b-d47ca.png 750w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3&gt;Step 5: Reassign each data point to the new closest centroid. Repeat Step 4 if anything was reassigned, else just go to FIN.&lt;/h3&gt;
+&lt;p&gt;In this step we reassign any data points to the new closest centroid we defined on the last step. One way we can do this is by drawing a line between the new centroids and then moving the points.
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/step4-563243c117bc9093dfb2ecde03c5096b-d47ca.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 57.599999999999994%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAIAAADtbgqsAAAACXBIWXMAAAsSAAALEgHS3X78AAABEklEQVQoz41S226DMAzN/3/PXvYT0x73tl6EikqBNE6MnQupCbBWE0yzrMiJc3J8HCsfYkpp3LKcx5LJYpsXVN0CcfiVlo086cq5pdij38QrDYOQz6lUPBcujql1fHNeUxx83ORWnUGecnmuT1YfE5If2Icwwdhh3tGl+gKekSfDXzfZekACCg1OZcPxGIi2y+5XZjFN4XCnOQ4AVF8i87hDu4BFc0xj51gw1x4cDl5r7LqAaM/nyLTb7ScYWfqF51MEMN8Hc6k9QIpx3EG+lF00u6qS9nBzrd/f2Nr280PU/gUuX5Xyq4WQ0M6TkXdsAVeNaTqngXozLC6x5Sm44/Nwdbn5M1eK2MuPiuz/O68T/QC7578+lWfZ+gAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Step 5&quot;
+        title=&quot;&quot;
+        src=&quot;/static/step4-563243c117bc9093dfb2ecde03c5096b-fb8a0.png&quot;
+        srcset=&quot;/static/step4-563243c117bc9093dfb2ecde03c5096b-1a291.png 148w,
+/static/step4-563243c117bc9093dfb2ecde03c5096b-2bc4a.png 295w,
+/static/step4-563243c117bc9093dfb2ecde03c5096b-fb8a0.png 590w,
+/static/step4-563243c117bc9093dfb2ecde03c5096b-d47ca.png 750w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;</content:encoded></item><item><title><![CDATA[Machine and Deep Learning Tools You Should Be Using]]></title><description><![CDATA[I’ve come across various tools used for machine and deep learning, both good and bad. I decided to write a quick little blog post on some of…]]></description><link>https://edgardev.com/2017/08/21/machine-and-deep-learning-tools-you-should-be-using/</link><guid isPermaLink="false">https://edgardev.com/2017/08/21/machine-and-deep-learning-tools-you-should-be-using/</guid><pubDate>Mon, 21 Aug 2017 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I’ve come across various tools used for machine and deep learning, both good and bad. I decided to write a quick little blog post on some of the tools machine and deep learning you should be using.&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&quot;https://www.tensorflow.org/&quot;&gt;Tensorflow&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Tensorflow is an abstraction library that allows you to build machine learning programs with an easy to use API. It was developed by researchers and engineers working on the Google Brain Team. Tensorflow comes with various low and high level API’s like dropout and max pooling that make it easy to build artifical neural networks. You can also extend Tensorflow to add additional features.&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&quot;https://keras.io/&quot;&gt;Keras&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Keras is a high-level neural networks API that interacts with TensorFlow, CNTK, or Theano. It was originally developed as part of the research effort of project ONEIROS. Overall, Keras is much easier to use in regard to other frameworks. It has a simple and easy to use API that allows you to rapidly create deep learning programs like Convolutional Neural Networks (CNNs) and Recurrent Neural Networks (RNNs).&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&quot;https://www.floydhub.com/&quot;&gt;Floydhub&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We don’t all have powerful machines with GPUs available but Floydhub solves that problem for us. Floydhub is a PAAS for training and deploying your deep learning models in the cloud with just a few commands. Floydhub supports various CPU and GPU environments like Tensorflow, Keras and Torch. It’s also relatively cheap and you only pay for what you need.&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&quot;https://www.kaggle.com/datasets&quot;&gt;Kaggle&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;One of the problems I had was finding high-quality data to train, test, and validate on. Kaggle is the solution to that problem. In Kaggle, you can find open datasets on everything from government, health, and science to popular games and dating trends. Kaggle also offers challenges posted by dataset publishers.&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&quot;http://jupyter.org/&quot;&gt;Jupyer Notebook&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;I first learned about Jupyter Notebook when learning deep learning, they quickly became my favorite thing. Jupyter Notebook is a web application that allows you to create and share documents that contain live code, equations, visualizations and explanatory text. It is great for experimentation and rapid prototyping.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Have any experience with any other tools? Feel free to comment.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Elixir Error Solution: assign @conn not available in eex template. Available assigns: []]]></title><description><![CDATA[Problem I was breaking my Elixir templates into a subtemplate but I was getting the following error: My parent template looked something…]]></description><link>https://edgardev.com/2017/07/15/elixir-error-solution-assign-conn-not-available-in-eex-template-available-assigns</link><guid isPermaLink="false">https://edgardev.com/2017/07/15/elixir-error-solution-assign-conn-not-available-in-eex-template-available-assigns</guid><pubDate>Sat, 15 Jul 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Problem&lt;/h2&gt;
 &lt;p&gt;I was breaking my Elixir templates into a subtemplate but I was getting the following error:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;assign @conn not available in eex template.
 
@@ -124,7 +367,53 @@ Available assigns: [:event]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; render &lt;span class=&quot;token string&quot;&gt;&quot;summary.html&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;event:&lt;/span&gt; event&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;conn:&lt;/span&gt; &lt;span class=&quot;token attribute variable&quot;&gt;@conn&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
     &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;That is it, I hope I was able to help.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Simple CORS in AWS Lambda - Serverless Architecture]]></title><description><![CDATA[Problem or When calling an AWS Lambda function via the API Gateway from the front-end using jQuery or other Javascript frameworks. Solution…]]></description><link>https://edgardev.com/2017/01/24/simple-cors-in-aws-lambda-serverless-architecture</link><guid isPermaLink="false">https://edgardev.com/2017/01/24/simple-cors-in-aws-lambda-serverless-architecture</guid><pubDate>Tue, 24 Jan 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Problem&lt;/h2&gt;
+&lt;p&gt;That is it, I hope I was able to help.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[See how many files are in each directory for a give directory]]></title><description><![CDATA[Problem I needed to know how many files were under each directory for the directory I was on in Linux. A simple   just gives you the number…]]></description><link>https://edgardev.com/2017/06/07/see-how-many-files-are-in-each-directory-for-a-give-directory</link><guid isPermaLink="false">https://edgardev.com/2017/06/07/see-how-many-files-are-in-each-directory-for-a-give-directory</guid><pubDate>Wed, 07 Jun 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Problem&lt;/h3&gt;
+&lt;p&gt;I needed to know how many files were under each directory for the directory I was on in Linux. A simple &lt;code class=&quot;language-text&quot;&gt;ls -la&lt;/code&gt; just gives you the number of files under your current directory, not sub directories.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; -la
+total 32
+drwxr-xr-x   14 edgarpino  staff    476 Jun  6 23:17 &lt;span class=&quot;token keyword&quot;&gt;.&lt;/span&gt;
+drwxr-xr-x   17 edgarpino  staff    578 Jun  2 15:03 &lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;
+drwxr-xr-x   14 edgarpino  staff    476 Jun  6 23:17 .deploy_git
+drwxr-xr-x   13 edgarpino  staff    442 Jun  6 23:16 .git
+-rw-r--r--    1 edgarpino  staff     71 May 29 12:34 .gitignore
+drwxr-xr-x    6 edgarpino  staff    204 Jun  7 09:28 .idea
+-rw-r--r--    1 edgarpino  staff   1841 Jun  4 11:05 _config.yml
+-rw-r--r--    1 edgarpino  staff    174 Jun  7 09:24 db.json
+drwxr-xr-x  297 edgarpino  staff  10098 Jun  2 16:19 node_modules
+-rw-r--r--    1 edgarpino  staff    592 Jun  2 16:19 package.json
+drwxr-xr-x   13 edgarpino  staff    442 Jun  6 23:17 public
+drwxr-xr-x    5 edgarpino  staff    170 May 28 09:29 scaffolds
+drwxr-xr-x    7 edgarpino  staff    238 Jun  3 10:53 &lt;span class=&quot;token function&quot;&gt;source&lt;/span&gt;
+drwxr-xr-x    4 edgarpino  staff    136 Jun  2 16:51 themes&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Solution&lt;/h3&gt;
+&lt;p&gt;The solution for me was simple:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Loop through all directories using the find command with a maxdepth of 1.&lt;/li&gt;
+&lt;li&gt;Count the number of files under each given directory.&lt;/li&gt;
+&lt;li&gt;Echo the directory and the number of files.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;dir&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;find&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;.&lt;/span&gt; -maxdepth 1 -type d&lt;span class=&quot;token variable&quot;&gt;)&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;token variable&quot;&gt;$dir&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;: &quot;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;find&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;$dir&lt;/span&gt; -type f &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;wc&lt;/span&gt; -l &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You can create a simple bash script or just paste it on your terminal window.&lt;/p&gt;
+&lt;p&gt;The output should be something like this:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;.:    10826
+./.deploy_git:     1407
+./.git:      427
+./.idea:        3
+./node_modules:     8611
+./public:      143
+./scaffolds:        3
+./source:       45
+./themes:      183&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[How To SSH Into Docker Container]]></title><description><![CDATA[Problem Sometimes you need you access a container to debug or to access a command line tool available inside. Solution When the container is…]]></description><link>https://edgardev.com/2017/06/06/how-to-ssh-into-docker-container/</link><guid isPermaLink="false">https://edgardev.com/2017/06/06/how-to-ssh-into-docker-container/</guid><pubDate>Tue, 06 Jun 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Problem&lt;/h3&gt;
+&lt;p&gt;Sometimes you need you access a container to debug or to access a command line tool available inside.&lt;/p&gt;
+&lt;h3&gt;Solution&lt;/h3&gt;
+&lt;p&gt;When the container is running you can use the &lt;a href=&quot;https://docs.docker.com/engine/reference/commandline/exec/&quot;&gt;exec&lt;/a&gt; Docker command to run a command in a running container. If you are using the Ubuntu image then this is how you SSH or bash into it a Docker container:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker &lt;span class=&quot;token function&quot;&gt;exec&lt;/span&gt; -it ubuntu_container &lt;span class=&quot;token function&quot;&gt;bash&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Note the &lt;code class=&quot;language-text&quot;&gt;--it&lt;/code&gt; option which allows you to keep STDIN open even if not attached and allocate a pseudo-TTY. You can also run a command under given user by using the &lt;code class=&quot;language-text&quot;&gt;-u&lt;/code&gt; option. See the official &lt;a href=&quot;https://docs.docker.com/engine/reference/commandline/exec/#usage&quot;&gt;exec Docker documentation&lt;/a&gt; for more info.&lt;/p&gt;
+&lt;p&gt;If the above does not work for you or if you are using a different Linux distribution the try the following:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker &lt;span class=&quot;token function&quot;&gt;exec&lt;/span&gt; -it some_container /bin/bash&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Simple CORS in AWS Lambda - Serverless Architecture]]></title><description><![CDATA[Problem or When calling an AWS Lambda function via the API Gateway from the front-end using jQuery or other Javascript frameworks. Solution…]]></description><link>https://edgardev.com/2017/01/24/simple-cors-in-aws-lambda-serverless-architecture</link><guid isPermaLink="false">https://edgardev.com/2017/01/24/simple-cors-in-aws-lambda-serverless-architecture</guid><pubDate>Tue, 24 Jan 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Problem&lt;/h2&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at https://12gddshj.execute-api.us-east-1.amazonaws.com/dev/api/email/send. (Reason: CORS header &amp;#39;Access-Control-Allow-Origin&amp;#39; missing).&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;or&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;XMLHttpRequest cannot load https://12gddshj.execute-api.us-east-1.amazonaws.com/dev/api/email/send. No &amp;#39;Access-Control-Allow-Origin&amp;#39; header is present on the requested resource. Origin &amp;#39;http://localhost:8000&amp;#39; is therefore not allowed access. The response had HTTP status code 400.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -206,4 +495,94 @@ callback(null, response);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;HTTP Middleware &lt;a href=&quot;https://lumen.laravel.com/docs/5.2/middleware&quot;&gt;https://lumen.laravel.com/docs/5.2/middleware&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Routing &lt;a href=&quot;https://lumen.laravel.com/docs/5.2/routing&quot;&gt;https://lumen.laravel.com/docs/5.2/routing&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Quick note on computers and programming languages]]></title><description><![CDATA[Hello, this is just something I found interesting on one of my CP courses. Four types of computers are: PC’s or personal computer. This type…]]></description><link>https://edgardev.com/quick-note-on-computers-and-programming-languages/</link><guid isPermaLink="false">https://edgardev.com/quick-note-on-computers-and-programming-languages/</guid><pubDate>Wed, 14 Jan 2015 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Hello, this is just something I found interesting on one of my CP courses.&lt;/p&gt;
+&lt;h3&gt;Four types of computers are:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;PC’s or personal computer. This type of computer is for the everyday use by a common person. It can be a desktop or a laptop that can handle simple and sometimes complex processing.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Servers: These computers are typically used by many people, most of the time remotely. They are designed to run large programs such as database and web servers. They can be big or small like a P.C depending on its need.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Supercomputers: These computers are equipped with the highest performance parts available and are typically in the millions of dollars. They are set-up as servers but they are tasked with complex mathematical computations, running simulations, and such.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Embedded Computers. These are found inside cars, televisions, and similar electronics thats purpose is to do mainly one task.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;High-level, assembly level, and baniray languge.&lt;/h3&gt;
+&lt;p&gt;The steps that a high-level language goes through to be readable by a computer processor are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The high-level C program written&lt;/li&gt;
+&lt;li&gt;The program is then compiled into an assembly level language.&lt;/li&gt;
+&lt;li&gt;This is now considered a low-level program&lt;/li&gt;
+&lt;li&gt;Assembly level language is relative to the computer architecture.&lt;/li&gt;
+&lt;li&gt;The program is then assembled into binary language that a processor can understand.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Not all languages follow this pattern, some don’t compile into an assembly level language at all and skip to binary.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[A Brief History of the Internet]]></title><description><![CDATA[Throughout history, never has it been an invention that would revolutionize the way people communicate and share information. People went…]]></description><link>https://edgardev.com/2015/01/11/the-internet-the-web-and-security/</link><guid isPermaLink="false">https://edgardev.com/2015/01/11/the-internet-the-web-and-security/</guid><pubDate>Sun, 11 Jan 2015 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Throughout history, never has it been an invention that would revolutionize the way people communicate and share information. People went from having to go through a lengthy process of compiling information to having it instantly and at the tips of their fingers. The World Wide Web is considered one of the greatest achievements next to invention of the printing press by Johannes Gutenberg in 1440. Today, people heavily rely on this technology as hours upon hours are spent by an individual to communicate with loved ones via social networks, store files online, work, and more. People don’t realize what the implications of relying on these services are and what information and data are being gathered from them.&lt;/p&gt;
+&lt;p&gt;Communication has always been a key element for any species. Different forms of communication have existed but one technology that has revolutionized communication in many ways its the Internet and the Web, a big part of it. Since its invention, people have been increasingly relying on it for many reasons. For the most part, it has been implemented as part of our lives in ways that no other form of communication has done. It, however, like other forms of technology, is not perfect and it has brought problems what many people are not aware. People are using this technology freely without thinking of the consequences.&lt;/p&gt;
+&lt;h3&gt;What is the internet&lt;/h3&gt;
+&lt;p&gt;To understand more about the World Wide Web, or simply the Web, it is important to first know a little about its parent technology, the Internet. So what is the Internet? It is simply a network, a vast system connecting computers across the world that share information through the wire and wireless networks. The Internet was first developed around the 1960s by the U.S Department of Defense as a way of sharing information and data throughout the military. As the technology improved and progressed, Universities and government computers were part of a network called ARPANET. The network grew to about 200 computers in 1981 and it was split in two, military computers were one and the other one is the network known today (Swanson) (Strickland). Chances are you are sitting in front of a computer attached to this network.&lt;/p&gt;
+&lt;p&gt;The Internet has several services that it offers called protocols which make things like the Web work. Here is a &lt;a href=&quot;http://en.wikipedia.org/wiki/Lists_of_network_protocols&quot;&gt;list of some of the protocols&lt;/a&gt;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Hypertext Transfer Protocol (HTTP) - This protocol is used to serve data when requested by a client, also known as a browser, like Internet Explorer and Google Chrome. As Tim Berners-Lee describes it, “The Hypertext Transfer Protocol (HTTP) is an application-level protocol for distributed, collaborative, hypermedia information systems.”&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Simple Mail Transfer Protocol (SMTP) - This protocol is used to transfer electronic mail across the Internet, another tool people heavily rely on.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;File Transfer Protocol (FTP) - This protocol is used for transferring files across the Internet.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;These are just some of the basic protocols that power the Internet but they do however play a big role in the success of this technology.&lt;/p&gt;
+&lt;h3&gt;What is the World Wide Web&lt;/h3&gt;
+&lt;p&gt;Now, what is the World Wide Web (WWW)? It is a system for publishing pages via a network known as the Internet, and it has been running since 1991. At first, It allowed for text to be transferred over the internet and it lets people jump easily from site to site via links. By using a Web browser, it made the process of accessing the pages on any computer in and outside of the network is made easier. It also allowed the internet to grow significantly since almost any operating system can have access to the Web by using a Web browser.&lt;/p&gt;
+&lt;p&gt;As with many other famous inventions, it all started with a problem that scientist had at a famous research center known as CERN or the European Laboratory for Particle Physics. The scientist would conduct long studies and experiments at CERN and then return home to their laboratories located around the world to review data from their experiments. A problem occurred when they wanted to share their data and results from those experiments, there was no easy way of doing it. Tim Berners-Lee was aware of this problem and realized the untapped potential of millions of computers that were connected through the Internet, he was motivated to find a solution. In late 1989 Tim Berners-Lee created a plan that would be known as the World Wide Web and presented it to CERN. The plan defined 3 of the technologies that would be used to create the World Wide Web as we know it today. Surprisingly enough, this plan was rejected at first but with his effort and push it was accepted by Cern at the end of 1990. He laid the foundation of the Web with three basic technologies: HyperText Markup Language(HTML) is the format of the Web and any document on the Web is written in this format. Uniform Resource Identifier(URI), basically an address given to a document on the Web, similar to a home address. HTTP allowed Web documents created in HTML to be retrieved and send through the Internet (History of the Web).&lt;/p&gt;
+&lt;h3&gt;Security and Privacy&lt;/h3&gt;
+&lt;p&gt;By design, the Internet and the Web have been venerable to security and privacy problems ever since they were invented because it was not on the minds of the people who created it. What first started as hacking phone lines to make free calls, known a “phreaking”, created the fundamentals for future hackers that would eventually break into other networks, steal valuable information, spy on people, and more. Hackers are able to accomplish this simply because the people who developed these technologies made programming errors that made their software venerable to exploits that would open the doors to allow them in. The web is also set up in client-server architecture on a peer-to-peer network that basically works like a file transfer system allowing the server to send you all of the files of a website, including malicious files if embedded, to your local machine after you request a website. In a way, you are opening a door every time you visit a website which could potentially be used in a malicious way (Judge).&lt;/p&gt;
+&lt;p&gt;The topic of privacy on the Internet and Web is no strange one, in fact, it can lead to a very controversial topic with mixed opinions simply because of privacy a relative to a persons point-of-view, beliefs, and the fact that it’s a new idea of privacy. As Brandeis and Warren explain people’s privacy in the modern world, &gt; “To satisfy a prurient taste the details of sexual relations are spread broadcast in the columns of the daily papers. To occupy the indolent, column upon column is filled with idle gossip, which can only be procured by intrusion upon the domestic circle. The intensity and complexity of life, attendant upon advancing civilization, have rendered necessary some retreat from the world, and man, under the refining influence of culture, has become more sensitive to publicity, so that solitude and privacy have become more essential to the individual; but modern enterprise and invention have, through invasions upon his privacy, subjected him to mental pain and distress, far greater than could be inflicted by mere bodily injury. Nor is the harm wrought by such invasions confined to the suffering of those who may be the subjects of journalistic or other enterprises. In this, as in other branches of commerce, the supply creates the demand. Each crop of unseemly gossip, thus harvested, becomes the seed of more, and, in direct proportion to its circulation, results in the lowering of social standards and of morality. Even gossip apparently harmless, when widely and persistently circulated, is potent for evil. It both belittles and perverts. It belittles by inverting the relative importance of things, thus dwarfing the thoughts and aspirations of a people. When personal gossip attains the dignity of print and crowds the space available for matters of real interest to the community, what wonder that the ignorant and thoughtless mistake its relative importance. Easy of comprehension, appealing to that weak side of human nature which is never wholly cast down by the misfortunes and frailties of our neighbors, no one can be surprised that it usurps the place of interest in brains capable of other things. Triviality destroys at once robustness of thought and delicacy of feeling. No enthusiasm can flourish, no generous impulse can survive under its blighting influence.” (Brandeis).&lt;/p&gt;
+&lt;p&gt;What does it mean? In simple terms, it can mean that people are willingly giving up their privacy to achieve fame through T.V shows, blogs, social networks, and other types of communication. People personally streaming on social networking sites most, if not all, major details of their lives without thinking about the consequences. However, even if people tried to achieve complete privacy on the Internet and Web it wouldn’t happen simply due to how these technologies work.&lt;/p&gt;
+&lt;p&gt;By simply going to a website you are giving up a lot of information which most servers log. The type of data a server log depends but here what is information is logged in general (Web Server Logs Data Collection Fields)&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Client IP address - This address can be used to provide a general location for the client.&lt;/li&gt;
+&lt;li&gt;Date - The date and time the request finished.
+The request information like the name of the file requested and such.&lt;/li&gt;
+&lt;li&gt;Operating System Information.
+Browser Information.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This is just some of the basic information a server collects about people. However, the server is not the only thing collecting your information. Services like Google Analytics, Leadformix, Marketo, and many other similar services collect large amounts of data about their users. Browser and search history, location, videos you watch, links you click, devices you use, and any other activity is tracked by these services. Marketing and analytics services like the ones mentioned before are not the only ones tracking people as services like DoubleClick, Facebook Connect, Disqus, and AddThis are installed on websites for functionality but they are also gathering all kinds of data. However, data itself is meaningless until it’s used for something.&lt;/p&gt;
+&lt;p&gt;It’s no secret that data about people is being collected all of the time but perhaps the most important questions are why? Many companies use the data to know more about their customers and learn how to better interact with them. It helps companies build relationships, make smart decisions, and reach a bigger audience. As Ohad Hecht explains,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“We are using big data to understand our business better: from our business [key performance indicator], clients’ behavior, and interactions with our company,”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“We combine [customer relationship management] data, financial data, HR data, billing, and bank data into a single big data warehouse and visualize it in different dashboards that target information needed for decision-making in different areas of the business.”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Collected data can be used to target people with relevant ads, information, suggestions, and more. It can be thought of as predicting users next action based on the information gathered from them, which to some extent can benefit the user.&lt;/p&gt;
+&lt;p&gt;However, data is not always used the right way and privacy problems can occur. Having an excessive amount of data about an individual can lead to a person feel like their privacy has been compromised in many ways. Companies value data a user generates more than expected, especially marketers. This data too is not always secure and the servers where it’s stored can be vulnerable to hackers. Data breaches are possible and there is no sure way of protecting it, especially once it’s out on the Internet. Just as it is easy for you to access data from the cloud, it’s easy for other companies, individuals, and especially the government. Email, images, files, and anything that you store on the web mostly belongs to the service provider and not the user. Some of that is to blame for outdated rules in the Electronic Communications Privacy Act (ECPA) which companies use as a loophole. As Consumer Watchdog’s Simpson explains&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“A huge concern about using the cloud is that your data does not have the same Fourth Amendment protections that it would have if it were stored in a desk drawer or even your desktop computer,”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Many service companies are taking advantage of this major loop to gather as much information as they can from the user and the information they stored since they have the freedom to do so. Government agencies are also taking advantage of this as they are increasingly requesting user data from service companies like Google and Facebook for investigations. However, some service companies don’t freely give out data,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“Cloud services aren’t just rolling over, though. For example, Google might comply with a subpoena to reveal the name, contact information, and login records of a Gmail subscriber. But Google would insist that the requesting authority obtain a court order requiring Google to provide greater levels of detail, such as the mail header for a message. In addition, Google would demand to see a search warrant before giving government investigators access to actual email content.” (Riofrio)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;It is important to understand that complete privacy can be impossible to accomplish due to the number of services a person uses and by laws and regulations that make it unclear on how is treated and who it truly belong to. Most importantly, the user must be aware that any activity, information, and data is not private at all on the Internet. A user needs to understand the type of information they are providing to different services and how it’s going to be treated before using a service. It’s a responsibility that they must learn to better take care of their data and information online, to smartly choose what services they used and how they use them.&lt;/p&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;There is no doubt that the Internet and the Web changed the lives of people, it is a fact. What started as a project by the U.S government to share data ended up being a network that rapidly grew around the world connecting currently billions of people. However, security and privacy have always been an issue. People are freely using the Internet without thinking about the outcomes, especially the privacy implications. Information and data are being collected by service providers which have the freedom to do most anything given the loopholes found in the current system. It’s also important to understand that a user must start valuing and thinking more about their data and what services they use and share information with. This is is one of the steps to increase their privacy along with updating laws that allow this to happen. The Internet is a tool that people will continue to rely on simply because it is an effective and reliable way of communication that has become part of peoples lives.&lt;/p&gt;
+&lt;h3&gt;#Sources&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Boswell, W. (n.d.). How The World Wide Web Has Changed Society. Retrieved August 7, 2014, from &lt;a href=&quot;http://websearch.about.com/od/whatistheinternet/a/usewww_2.htm&quot;&gt;http://websearch.about.com/od/whatistheinternet/a/usewww_2.htm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Finding Information on the Internet. (2005, January 1). Retrieved August 7, 2014, from &lt;a href=&quot;http://www.infoplease.com/homework/u4evalinfo.html&quot;&gt;http://www.infoplease.com/homework/u4evalinfo.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Geib, G. (2013, February 13). Study finds inaccurate, inconsistent web information about using medication during pregnancy. Retrieved August 5, 2014, from &lt;a href=&quot;http://www.pharmacy.arizona.edu/releases/study-finds-inaccurate-inconsistent-web-information-about-using-medication-during-pregnancy&quot;&gt;http://www.pharmacy.arizona.edu/releases/study-finds-inaccurate-inconsistent-web-information-about-using-medication-during-pregnancy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;History of the Web. (2008, January 1). Retrieved August 7, 2014, from &lt;a href=&quot;http://webfoundation.org/about/vision/history-of-the-web/&quot;&gt;http://webfoundation.org/about/vision/history-of-the-web/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Strickland, Jonathan. “How does the Internet work?” 07 May 2010. HowStuffWorks.com. (&lt;a href=&quot;http://computer.howstuffworks.com/internet/basics/internet.htm&quot;&gt;http://computer.howstuffworks.com/internet/basics/internet.htm&lt;/a&gt;) 07 August 2014.&lt;/li&gt;
+&lt;li&gt;World Internet Users Statistics Usage and World Population Stats. (n.d.). Retrieved August 7, 2014, from &lt;a href=&quot;http://www.internetworldstats.com/stats.htm&quot;&gt;http://www.internetworldstats.com/stats.htm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Why The Web. (2008, January 1). Retrieved August 7, 2014, from &lt;a href=&quot;http://webfoundation.org/about/vision/why-the-web/&quot;&gt;http://webfoundation.org/about/vision/why-the-web/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Judge, Kevin. “Why Is the Internet so Vulnerable?” Why Is the Internet so Vulnerable? Tool Box, 26 Feb. 2013. Web. 24 Nov. 2014. &amp;#x3C;&lt;a href=&quot;http://it.toolbox.com/blogs/internet-&quot;&gt;http://it.toolbox.com/blogs/internet-&lt;/a&gt; security/why-is-the-internet-so-vulnerable-55149&gt;.&lt;/li&gt;
+&lt;li&gt;Brandeis, Warren. “The Right to Privacy.” Warren and Brandeis, “The Right to Privacy” Harvard Law Review, 15 Dec. 1890. Web. 24 Nov. 2014. &amp;#x3C;&lt;a href=&quot;http://groups.csail.mit.edu/&quot;&gt;http://groups.csail.mit.edu/&lt;/a&gt; mac/classes/6.805/articles/privacy/Privacy&lt;em&gt;brand&lt;/em&gt;warr2.html&gt;.&lt;/li&gt;
+&lt;li&gt;“Web Server Logs Data Collection Fields.” Web Server Logs Data Collection Fields. Time Atlas, 23 Aug. 2011. Web. 24 Nov. 2014. &amp;#x3C;&lt;a href=&quot;http://www.timeatlas.com/web_sites/&quot;&gt;http://www.timeatlas.com/web_sites/&lt;/a&gt; general/web&lt;em&gt;server&lt;/em&gt;logs&lt;em&gt;and&lt;/em&gt;internet_privacy#.VHKh25PF-8u&gt;.&lt;/li&gt;
+&lt;li&gt;Riofrio, Melissa. “The 5 Biggest Online Privacy Threats of 2013.” PCWorld. 8 Apr. 2013. Web. 24 Nov. 2014. &lt;a href=&quot;http://www.pcworld.com/article/2031908/the-5-biggest-online-privacy-threats-of-2013.html&quot;&gt;http://www.pcworld.com/article/2031908/the-5-biggest-online-privacy-threats-of-2013.html&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;</content:encoded></item></channel></rss>
