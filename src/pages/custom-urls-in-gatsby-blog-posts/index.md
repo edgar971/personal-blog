@@ -1,0 +1,63 @@
+---
+title: 'Custom URLs in Gatsby Blog Posts'
+date: '2018-09-21'
+---
+
+## Problem
+
+When moving my blog from Ghost to Gatsby I ran into an issue. I wanted to have custom links instead of the default directory name inside of pages. Something like `/2018-01-12/path-to-a-page` instead of `/path-to-a-page`. I did search but I didn't find a solution that would support both types of links.
+
+## Solution
+
+My solution was simple and not hard to implement. We are going to support adding `path` option to the frontmatter, that is the content between the three hyphens.
+
+Something like this:
+
+```
+---
+title: 'Custom URLs in Gatsby Blog Posts'
+date: '2018-09-21'
+path: '/custom/path/to/blog-post'
+---
+```
+
+We also want to support the default way of generating paths which are directory based.
+
+The first thing we are going to do is update our `onCreateNode` in the `gatsby-node.js` to support the `path` field in our frontmatter.
+
+```javascript
+let path
+if (node.frontmatter.path) {
+  path = node.frontmatter.path
+} else {
+  path = createFilePath({ node, getNode })
+}
+```
+
+We first check if the node has the `path` field and set the path if it is.
+We use the default way of creating the path via the `createFilePath` function as a fallback.
+
+Here's the full `onCreateNode` function inside `gatsby-node.js`:
+
+```javascript
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
+
+  if (node.internal.type === `MarkdownRemark`) {
+    let path
+    if (node.frontmatter.path) {
+      path = node.frontmatter.path
+    } else {
+      path = createFilePath({ node, getNode })
+    }
+
+    createNodeField({
+      name: `slug`,
+      node,
+      value: path,
+    })
+  }
+}
+```
+
+That's all you have to do to support custom URLs in Gatsby. Check out my [blog repo](https://github.com/edgar971/personal-blog/) to see my setup.
