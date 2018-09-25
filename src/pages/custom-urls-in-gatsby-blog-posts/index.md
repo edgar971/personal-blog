@@ -5,7 +5,7 @@ date: '2018-09-21'
 
 ## Problem
 
-When moving my blog from Ghost to Gatsby I ran into an issue. I wanted to have custom links instead of the default directory name inside of pages. Something like `/2018-01-12/path-to-a-page` instead of `/path-to-a-page`. I did search but I didn't find a solution that would support both types of links.
+When moving my blog from Ghost to Gatsby, I ran into a small issue. I wanted to have custom links instead of the default directory name inside of pages, something like `/2018-01-12/path-to-a-page` instead of `/path-to-a-page`. I did research, but I didn't find a solution that would support both types of links.
 
 ## Solution
 
