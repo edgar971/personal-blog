@@ -28,7 +28,7 @@ NOTE: Postgrex is used to execute Ecto queries against our Postgres database.
 
 2. Run `mix deps.get` to install our added dependencies.
 
-Now that we have those packages installed, let's configure Ecto. We can do that by running the following generator command:
+Now that we have those packages installed, let's configure Ecto. We can do that by running the following [generator command](https://hexdocs.pm/ecto/Mix.Tasks.Ecto.html):
 
 ```
 mix ecto.gen.repo -r GettingStartedWithEcto.Repo
@@ -93,6 +93,8 @@ You should see the following message if everything was successful:
 ```
 The database for GettingStartedWithEcto.Repo has been created
 ```
+
+The `GettingStartedWithEcto.Repo` is our repository that handles our database queries.
 
 ## Congratulations
 
