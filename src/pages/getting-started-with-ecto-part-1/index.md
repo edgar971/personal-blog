@@ -96,6 +96,6 @@ The database for GettingStartedWithEcto.Repo has been created
 
 The `GettingStartedWithEcto.Repo` is our repository that handles our database queries.
 
-## Congratulations
+## Congratulations 🎉 🎉 🎉
 
-You have installed and configured Ecto. On the next tutorial we will learn how to create migrations and schemas in our Elixir application.
+You have installed and configured Ecto. On the next post, we will learn how to create migrations and schemas in our Elixir application.
