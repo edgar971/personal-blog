@@ -1,0 +1,13 @@
+.line-numbers .line-numbers-rows {
+  padding-top: 1em;
+  padding-left: .5em;
+}
+
+.blog-post img {
+  width: 100%;
+}
+
+.blog-post .language-text {
+  padding-left: .25em;
+  padding-right: .25em;
+}
