@@ -7,13 +7,13 @@ Welcome to part one of Getting Started with Ecto. This post is part of a series 
 
 ## What is Ecto?
 
-Ecto is a database package for Elixir applications. It is used for writing database queries and interacting with your database. With Ecto you can create migrations, define schemas, create and update records, and query your database. The current version supports PostgreSQL and MySQL but support for MSSQL, SQLite, and MongoDB will be added in the future.
+Ecto is a database package for Elixir applications. It is used for writing database queries and interacting with your database. With Ecto you can create migrations, define schemas, create and update records, and query your database. The current version supports PostgreSQL and MySQL. Support for MSSQL, SQLite, and MongoDB will be added in the future.
 
 ## Installation and Setup
 
-Let's start by adding and configuring Ecto in our Elixir application. Feel free to skip this step if you have this done already or if you are using Phoenix.
+Let's start by adding and configuring Ecto in our Elixir application. Feel free to skip this step if you have done this already, or if you are using Phoenix.
 
-1. Lets add the `ecto` and `postgrex` packages to our `deps` function in the `mix.exs` file:
+1. Let's add the `ecto` and `postgrex` packages to our `deps` function in the `mix.exs` file:
 
 ```elixir
 defp deps do
@@ -63,7 +63,7 @@ config :getting_started_with_ecto, ecto_repos: [GettingStartedWithEcto.Repo]
 NOTE: Your Postgres configuration might be different.
 
 1. Double check your username, password, and host if you are having problems connecting.
-1. The default port of `5432` is used but you can change it by adding to the config above: `port: 15432`
+1. The default port of `5432` is used, but you can change it by adding to the config above: `port: 15432`
 
 The last thing we need to do is set up the `GettingStartedWithEcto.Repo` as a supervisor within our application's
 supervision tree inside `lib/getting_started_with_ecto/application.ex`:
@@ -94,7 +94,7 @@ You should see the following message if everything was successful:
 The database for GettingStartedWithEcto.Repo has been created
 ```
 
-The `GettingStartedWithEcto.Repo` is our repository that handles our database queries.
+The `GettingStartedWithEcto.Repo` is the repository that handles our database queries.
 
 ## Congratulations 🎉 🎉 🎉
 

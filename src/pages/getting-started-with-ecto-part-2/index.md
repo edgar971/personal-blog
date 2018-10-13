@@ -3,7 +3,7 @@ title: 'Getting Started with Ecto: Part 2'
 date: '2018-10-03'
 ---
 
-Welcome to part two of Getting Started with Ecto. In the last post, we covered how to install and configure Ecto in our application. In this post, we will cover migrations, schemas, and changesets in Ecto.
+Welcome to part two of Getting Started with Ecto. In the last post, we covered how to install and configure Ecto in our application. In this post we will cover migrations, schemas, and changesets in Ecto.
 
 ## Migrations
 
@@ -12,8 +12,8 @@ Now that we have a database and Repo, we are going to create tables and columns.
 ![Database design](database.svg)
 
 - Users have credentials with a unique email
-- Challenges have many solutions.
-- Users can have one solution per challenge.
+- Challenges have many solutions
+- Users can have one solution per challenge
 
 #### Generating Migrations
 
@@ -35,7 +35,7 @@ defmodule GettingStartedWithEcto.Repo.Migrations.CreateUsersTable do
 end
 ```
 
-Let's define our table inside the [`change`](https://hexdocs.pm/ecto/Ecto.Migration.html#module-change) function, this allows us to create reversible migrations.
+Lets define our table inside the [`change`](https://hexdocs.pm/ecto/Ecto.Migration.html#module-change) function; this allows us to create reversible migrations.
 
 ```elixir
 def change do
@@ -101,7 +101,7 @@ Let's move on to schemas.
 ## Schemas
 
 Schemas are modules that represent data from our database. They define the table and column mapping, help functions, and changesets.
-It's our database but in code.
+It's our database, but in code.
 
 #### Creating Schemas
 
@@ -161,9 +161,9 @@ defmodule GettingStartedWithEcto.Accounts.User do
 end
 ```
 
-Note: Don't forget to add the `GettingStartedWithEcto.Accounts.Credential` alias at the top of the file.
+NOTE: Don't forget to add the `GettingStartedWithEcto.Accounts.Credential` alias at the top of the file.
 
-If your schema has one-to-many association then you can use the [`has_many`](https://hexdocs.pm/ecto/Ecto.Schema.html#has_many/3).
+If your schema has one-to-many association you can use the [`has_many`](https://hexdocs.pm/ecto/Ecto.Schema.html#has_many/3).
 
 Our `solution` and `challenge` schemas don't cover anything new so I will skip them but check out the [source code](https://github.com/edgar971/getting_started_with_ecto/tree/master/lib/getting_started_with_ecto/challenges) reference.
 
@@ -221,7 +221,7 @@ Let's move on to creating custom validation functions.
 We can also define custom functions to validate or change any of the fields in the changeset. Let's create a 
 function that checks if the word 'Elixir' is part of the `password_hash` field. 
 
-Let's first define our `challenge` changeset inside it's appropiate schema file. 
+Define our `credentials` changeset inside it's appropiate schema file. 
 ```elixir {numberLines: true}
 def changeset(credentials, attrs) do
   credentials
@@ -255,11 +255,11 @@ This changeset is a little more complex since we have more validation.
 In line 4, the `:user` association gets casts with its own changeset. This allows us to create or update the user associated with the credentials. 
 
 In line 6, we call our custom `validate_password` validator function. This function does a simple check on the string
-to determine if the word "Elixir" appears within the `validate_password`. It returns the changeset for a valid password or calls the `password_invalid` function which returns the changeset with an error.
+to determine if the word "Elixir" appears within the `validate_password`. It returns the changeset for a valid password, or calls the `password_invalid` function which returns the changeset with an error.
 
 Custom validator functions are flexible and allow you to validate changesets with more granularity. 
 
-Our `solution` and `challenge` changeset don't cover anything new so I will skip them but check out the [source code](https://github.com/edgar971/getting_started_with_ecto/tree/master/lib/getting_started_with_ecto/challenges) reference.
+Our `solution` and `challenge` changeset don't cover anything new so I will skip them, but check out the [source code](https://github.com/edgar971/getting_started_with_ecto/tree/master/lib/getting_started_with_ecto/challenges) reference.
 
 
 ## Congratulations 🎉 🎉 🎉
