@@ -1,9 +1,9 @@
 ---
-title: 'Getting Started with Ecto: Part 2'
+title: 'Getting Started with Ecto Part 2: Migrations, Schemas, and Changeset'
 date: '2018-10-03'
 ---
 
-Welcome to part two of Getting Started with Ecto. In the last post, we covered how to install and configure Ecto in our application. In this post we will cover migrations, schemas, and changesets in Ecto.
+Welcome to part two of Getting Started with Ecto. In the [last post](/getting-started-with-ecto-part-1/), we covered how to install and configure Ecto in our application. In this post we will cover migrations, schemas, and changesets in Ecto.
 
 ## Migrations
 
@@ -265,4 +265,4 @@ Our `solution` and `challenge` changeset don't cover anything new so I will skip
 ## Congratulations 🎉 🎉 🎉
 
 We covered a lot of Ecto concepts in this post. We learned how to create migrations, schemas, and changesets. 
-If you need more information or have a question, feel free to leave a comment or check out the [Ecto documentation](https://hexdocs.pm/ecto/Ecto.html). On the next post, we will start using our Repo to make database queries. 
+If you need more information or have a question, feel free to leave a comment or check out the [Ecto documentation](https://hexdocs.pm/ecto/Ecto.html). On the next post, we will start using our Repo to make database queries.

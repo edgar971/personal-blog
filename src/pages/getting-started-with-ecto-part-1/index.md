@@ -1,5 +1,5 @@
 ---
-title: 'Getting Started with Ecto: Part 1'
+title: 'Getting Started with Ecto Part 1: Installing and Configuring Ecto'
 date: '2018-09-26'
 ---
 
@@ -98,4 +98,4 @@ The `GettingStartedWithEcto.Repo` is the repository that handles our database qu
 
 ## Congratulations 🎉 🎉 🎉
 
-You have installed and configured Ecto. On the next post, we will learn how to create migrations and schemas in our Elixir application.
+You have installed and configured Ecto. On the [next post](/getting-started-with-ecto-part-2/), we will learn how to create migrations and schemas in our Elixir application. 
