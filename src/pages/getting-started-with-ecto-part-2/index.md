@@ -1,6 +1,6 @@
 ---
 title: 'Getting Started with Ecto Part 2: Migrations, Schemas, and Changeset'
-date: '2018-10-03'
+date: '2018-10-12'
 ---
 
 Welcome to part two of Getting Started with Ecto. In the [last post](/getting-started-with-ecto-part-1/), we covered how to install and configure Ecto in our application. In this post we will cover migrations, schemas, and changesets in Ecto.

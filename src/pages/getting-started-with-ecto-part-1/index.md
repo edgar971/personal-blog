@@ -1,6 +1,6 @@
 ---
 title: 'Getting Started with Ecto Part 1: Installing and Configuring Ecto'
-date: '2018-09-26'
+date: '2018-09-30'
 ---
 
 Welcome to part one of Getting Started with Ecto. This post is part of a series to teach you how to use Ecto. I will go over how to setup Ecto, create migrations and schemas, along with simple and more complicated queries. By the end of the series, you will be able to comfortably use Ecto with Postgres in your Elixir applications.
