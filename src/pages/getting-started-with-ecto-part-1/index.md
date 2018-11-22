@@ -3,7 +3,9 @@ title: 'Getting Started with Ecto Part 1: Installing and Configuring Ecto'
 date: '2018-09-30'
 ---
 
-Welcome to part one of Getting Started with Ecto. This post is part of a series to teach you how to use Ecto. I will go over how to setup Ecto, create migrations and schemas, along with simple and more complicated queries. By the end of the series, you will be able to comfortably use Ecto with Postgres in your Elixir applications.
+> Note: This post was updated to work with Ecto 3.0
+
+Welcome to part one of Getting Started with Ecto 3.0. This post is part of a series to teach you how to use Ecto. I will go over how to setup Ecto, create migrations and schemas, along with simple and more complicated queries. By the end of the series, you will be able to comfortably use Ecto with Postgres in your Elixir applications.
 
 ## What is Ecto?
 
@@ -13,13 +15,13 @@ Ecto is a database package for Elixir applications. It is used for writing datab
 
 Let's start by adding and configuring Ecto in our Elixir application. Feel free to skip this step if you have done this already, or if you are using Phoenix.
 
-1. Let's add the `ecto` and `postgrex` packages to our `deps` function in the `mix.exs` file:
+1. Let's add the `ecto_sql` and `postgrex` packages to our `deps` function in the `mix.exs` file:
 
 ```elixir
 defp deps do
     [
-      {:ecto, "~> 2.2"},
-      {:postgrex, "~> 0.13.5"}
+      {:ecto_sql, "~> 3.0"},
+      {:postgrex, ">= 0.0.0"}
     ]
 end
 ```
@@ -38,7 +40,9 @@ This will generate our Repo, used to connect and query our database, in `lib/get
 
 ```
 defmodule GettingStartedWithEcto.Repo do
-  use Ecto.Repo, otp_app: :getting_started_with_ecto
+  use Ecto.Repo,
+    otp_app: :getting_started_with_ecto,
+    adapter: Ecto.Adapters.Postgres
 end
 ```
 
@@ -46,7 +50,6 @@ And update our config to connect to the database:
 
 ```elixir
 config :getting_started_with_ecto, GettingStartedWithEcto.Repo,
-  adapter: Ecto.Adapters.Postgres,
   database: "getting_started_with_ecto_repo",
   username: "user",
   password: "pass",
@@ -98,4 +101,4 @@ The `GettingStartedWithEcto.Repo` is the repository that handles our database qu
 
 ## Congratulations 🎉 🎉 🎉
 
-You have installed and configured Ecto. On the [next post](/getting-started-with-ecto-part-2/), we will learn how to create migrations and schemas in our Elixir application. 
+You have installed and configured Ecto. On the [next post](/getting-started-with-ecto-part-2/), we will learn how to create migrations and schemas in our Elixir application.
