@@ -3,13 +3,13 @@ title: 'Getting Started with Ecto Part 3: CRUD'
 date: '2018-12-03'
 ---
 
-Welcome to part three of Getting Started with Ecto. On the [last post](/getting-started-with-ecto-part-2/), we covered how to create migrations, schemas, and changesets. In this post we will cover how to create records in our database.
+Welcome to part three of Getting Started with Ecto. On the [last post](/getting-started-with-ecto-part-2/), we covered how to create migrations, schemas, and changesets. In this post, we will cover how to create records in our database.
 
 ## Ecto is not an ORM
 
-If you come from Ruby on Rails or .Net then you might be familiar with Active Record or Entity framework. You might be used to doing something like `user.Save()` or `User.Find()`. These and many frameworks follow the Active Record design pattern which is an approach of accessing data in a database. One of the major drawbacks of this pattern is that your domain is usually tightly coupled to a certains persistence layer.
+If you come from Ruby on Rails or .Net then you might be familiar with Active Record or Entity framework. You might be used to doing something like `user.Save()` or `User.Find()`. These and many frameworks follow the Active Record design pattern which is an approach of accessing data in a database. One of the major drawbacks of this pattern is that your domain is usually tightly coupled to a certain persistence layer.
 
-Ecto follows the Repository design pattern which is an abstraction of the data layer and a way of centralising the handling of the domain objects. In Ecto, queries are done using the `Ecto.Query` DSL agains our repository (`GettingStartedWithEcto.Repo`).
+Ecto follows the Repository design pattern which is an abstraction of the data layer and a way of centralizing the handling of the domain objects. In Ecto, queries are done using the `Ecto.Query` DSL against our repository (`GettingStartedWithEcto.Repo`).
 
 Okay, let's move on to creating records.
 
@@ -17,7 +17,7 @@ Okay, let's move on to creating records.
 
 The first thing we are going to create a challenge. Check out the database design in part 2 for reference.
 
-Let's define the `Challenges` module inside `getting_started_with_ecto/challenges/challenges.ex`. Inside of that module, we will define a function called `create_challenge` that takes one argument with map as the default. In this function, we will validate the data via the chageset and insert it to the database. Here's how that looks like:
+Let's define the `Challenges` module inside `getting_started_with_ecto/challenges/challenges.ex`. Inside of that module, we will define a function called `create_challenge` that takes one argument with a map as the default. In this function, we will validate the data via the changeset and insert it to the database. Here's how that looks like:
 
 ```elixir
 defmodule GettingStartedWithEcto.Challenges do
@@ -35,7 +35,7 @@ end
 In this case, the [`Repo.insert`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert/2) function takes a `changeset`. It also takes other options like:
 
 - `:returning` for selecting which fields to return. It will return the fields the struct by default.
-- `:on_conflict` to specify an alternative action to raising an error. We will use this one later on for upserts.
+- `:on_conflict` to specify an alternative action to raise an error. We will use this one later on for upserts.
 
 See the official docs for more [options](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert/2-options). You can also use the [`Repo.insert!`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert!/2) function which is similar to [`Repo.insert`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert/2) which will raise if the changeset is invalid or an error happens.
 
@@ -80,7 +80,7 @@ def get_challenge_by_id(id) do
 end
 ```
 
-As you can see, this functions is fairly straightforward. We [`Repo.get`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:get/3) takes in our `Challenge` schema and the id. It returns the struct if there is a match, otherwise `nil` will be returned.
+As you can see, this functions is fairly straightforward. We [`Repo.get`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:get/3) takes in our `Challenge` schema and the id. It returns the struct if there is a match, otherwise, `nil` will be returned.
 
 Let's give it a try.
 
@@ -171,7 +171,7 @@ It should return a tuple `{:ok, struct}`:
 
 Now let's add a user with a credentials relationship.
 
-Let's define the `Accounts` module inside `getting_started_with_ecto/accounts/accounts.ex`. Inside of that module, we will define a function called `create_users_with_credentials` that takes one argument with map as the default. In this function, we will validate the user and credentials and insert them both into the database. Here's how that looks like:
+Let's define the `Accounts` module inside `getting_started_with_ecto/accounts/accounts.ex`. Inside of that module, we will define a function called `create_users_with_credentials` that takes one argument with a map as the default. In this function, we will validate the user and credentials and insert them both into the database. Here's how that looks like:
 
 ```elixir
 defmodule GettingStartedWithEcto.Accounts do
