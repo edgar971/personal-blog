@@ -7,9 +7,9 @@ Welcome to part three of Getting Started with Ecto. On the [last post](/getting-
 
 ## Ecto is not an ORM
 
-If you come from Ruby on Rails or .Net then you might be familiar with Active Record or Entity framework. You might be used to doing something like `user.Save()` or `User.Find()`. These and many frameworks follow the Active Record design pattern which is an approach of accessing data in a database. One of the major drawbacks of this pattern is that your domain is usually tightly coupled to a certain persistence layer.
+If you come from Ruby on Rails or .Net, you might be familiar with Active Record or Entity framework. You may be used to doing something like `user.Save()` or `User.Find()`. These and other frameworks follow the Active Record design pattern which is an approach of accessing data in a database. One of the major drawbacks of this pattern is that your domain is usually tightly coupled to a certain persistence layer. You probably will have hard time changing the type of database you are using.
 
-Ecto follows the Repository design pattern which is an abstraction of the data layer and a way of centralizing the handling of the domain objects. In Ecto, queries are done using the `Ecto.Query` DSL against our repository (`GettingStartedWithEcto.Repo`).
+Ecto follows the Repository design pattern which is an abstraction of the data layer. It's a way of centralizing the handling of the domain objects. In Ecto, queries are done using the `Ecto.Query` DSL against our repository (`GettingStartedWithEcto.Repo`).
 
 I highly suggest reading [this article to learn more about the repository pattern](https://deviq.com/repository-pattern/).
 
@@ -19,7 +19,7 @@ Okay, let's move on to creating records.
 
 The first thing we are going to create a challenge. Check out the [database design in part 2](getting-started-with-ecto-part-2/) for reference.
 
-Let's define the `Challenges` module inside `getting_started_with_ecto/challenges/challenges.ex`. Inside of that module, we will define a function called `create_challenge` that takes one argument with a map as the default. In this function, we will validate the data via the changeset and insert it to the database. Here's how that looks like:
+Let's define the `Challenges` module inside `getting_started_with_ecto/challenges/challenges.ex`. Let's define a function called `create_challenge` that takes one argument with a map as the default. In this function, we will validate the data via the changeset and insert it to the database. Here's how that looks like:
 
 ```elixir
 defmodule GettingStartedWithEcto.Challenges do
@@ -120,7 +120,7 @@ It should return the following:
 }
 ```
 
-There are other function for querying the database and Ecto does support custom queries but we will cover does later. Here are some of the functions Ecto provides out of the box:
+There are other function for querying the database and Ecto does support custom queries, we will cover does later. Here are some of the functions Ecto provides out of the box:
 
 - [`Repo.one`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:one/2) for fetching a single result.
 - [`Repo.get_by`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:get_by/3) for fetching a single result by a given column instead of the primary key.
@@ -200,7 +200,7 @@ With the magic of pattern matching and guards, our function will take the id and
 
 ## One last thing
 
-One thing to note is that I used the Ecto functions that return tuples or `nil` but there are equivalent functions that raise errors instead. For example, there is a `Repo.get!` that raises an errors instead of returning a `nil`. There is also a `Repo.delete!` that raises an error instead of returning `{:error, changeset}`. Most of these functions end with a `!`, check out the [documentation](https://hexdocs.pm/ecto/Ecto.Repo.html#content) for more info.
+I used the Ecto functions that return tuples or `nil` but don't raise any errors. There are equivalent functions that raise errors instead. For example, there is a `Repo.get!` that raises an errors instead of returning a `nil`. There is also a `Repo.delete!` that raises an error instead of returning `{:error, changeset}`. Most of these functions end with a `!`, check out the [documentation](https://hexdocs.pm/ecto/Ecto.Repo.html#content) for more info.
 
 ## Congratulations 🎉 🎉 🎉
 
