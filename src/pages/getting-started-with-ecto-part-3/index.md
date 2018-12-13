@@ -198,7 +198,7 @@ end
 
 With the magic of pattern matching and guards, our function will take the id and delete the record.
 
-## One more thing
+## One last thing
 
 One thing to note is that I used the Ecto functions that return tuples or `nil` but there are equivalent functions that raise errors instead. For example, there is a `Repo.get!` that raises an errors instead of returning a `nil`. There is also a `Repo.delete!` that raises an error instead of returning `{:error, changeset}`. Most of these functions end with a `!`, check out the [documentation](https://hexdocs.pm/ecto/Ecto.Repo.html#content) for more info.
 

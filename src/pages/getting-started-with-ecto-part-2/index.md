@@ -220,10 +220,11 @@ Let's move on to creating custom validation functions.
 
 #### Custom Validation Function
 
-We can also define custom functions to validate or change any of the fields in the changeset. Let's create a 
-function that checks if the word 'Elixir' is part of the `password_hash` field. 
+We can also define custom functions to validate or change any of the fields in the changeset. Let's create a
+function that checks if the word 'Elixir' is part of the `password_hash` field.
 
-Define our `credentials` changeset inside it's appropiate schema file. 
+Define our `credentials` changeset inside it's appropiate schema file.
+
 ```elixir {numberLines: true}
 def changeset(credentials, attrs) do
   credentials
@@ -252,19 +253,18 @@ defp password_invalid(changeset) do
 end
 ```
 
-This changeset is a little more complex since we have more validation. 
+This changeset is a little more complex since we have more validation.
 
-In line 4, the `:user` association gets casts with its own changeset. This allows us to create or update the user associated with the credentials. 
+In line 4, the `:user` association gets casts with its own changeset. This allows us to create or update the user associated with the credentials.
 
 In line 6, we call our custom `validate_password` validator function. This function does a simple check on the string
 to determine if the word "Elixir" appears within the `validate_password`. It returns the changeset for a valid password, or calls the `password_invalid` function which returns the changeset with an error.
 
-Custom validator functions are flexible and allow you to validate changesets with more granularity. 
+Custom validator functions are flexible and allow you to validate changesets with more granularity.
 
 Our `solution` and `challenge` changeset don't cover anything new so I will skip them, but check out the [source code](https://github.com/edgar971/getting_started_with_ecto/tree/master/lib/getting_started_with_ecto/challenges) reference.
 
-
 ## Congratulations 🎉 🎉 🎉
 
-We covered a lot of Ecto concepts in this post. We learned how to create migrations, schemas, and changesets. 
+We covered a lot of Ecto concepts in this post. We learned how to create migrations, schemas, and changesets.
 If you need more information or have a question, feel free to leave a comment or check out the [Ecto documentation](https://hexdocs.pm/ecto/Ecto.html). On the next post, we will start using our Repo to make database queries.
