@@ -1,9 +1,9 @@
 ---
-title: 'Getting Started with Ecto Part 3: CRUD'
-date: '2018-12-03'
+title: 'Getting Started with Ecto Part 3: CRUD Operations'
+date: '2018-12-12'
 ---
 
-Welcome to part three of Getting Started with Ecto. On the [last post](/getting-started-with-ecto-part-2/), we covered how to create migrations, schemas, and changesets. In this post, we will cover how to create records in our database.
+Welcome to part three of Getting Started with Ecto. On the [last post](/getting-started-with-ecto-part-2/), we covered how to create migrations, schemas, and changesets. In this post, we will cover how to run CRUD operations against our Postgres database using Ecto.
 
 ## Ecto is not an ORM
 
@@ -11,11 +11,13 @@ If you come from Ruby on Rails or .Net then you might be familiar with Active Re
 
 Ecto follows the Repository design pattern which is an abstraction of the data layer and a way of centralizing the handling of the domain objects. In Ecto, queries are done using the `Ecto.Query` DSL against our repository (`GettingStartedWithEcto.Repo`).
 
+I highly suggest reading [this article to learn more about the repository pattern](https://deviq.com/repository-pattern/).
+
 Okay, let's move on to creating records.
 
 ## Creating Records
 
-The first thing we are going to create a challenge. Check out the database design in part 2 for reference.
+The first thing we are going to create a challenge. Check out the [database design in part 2](getting-started-with-ecto-part-2/) for reference.
 
 Let's define the `Challenges` module inside `getting_started_with_ecto/challenges/challenges.ex`. Inside of that module, we will define a function called `create_challenge` that takes one argument with a map as the default. In this function, we will validate the data via the changeset and insert it to the database. Here's how that looks like:
 
@@ -35,9 +37,11 @@ end
 In this case, the [`Repo.insert`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert/2) function takes a `changeset`. It also takes other options like:
 
 - `:returning` for selecting which fields to return. It will return the fields the struct by default.
-- `:on_conflict` to specify an alternative action to raise an error. We will use this one later on for upserts.
+- `:on_conflict` to specify an alternative action of raising an error. We will use this one later on for upserts.
 
-See the official docs for more [options](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert/2-options). You can also use the [`Repo.insert!`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert!/2) function which is similar to [`Repo.insert`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert/2) which will raise if the changeset is invalid or an error happens.
+See the official docs for more [options](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert/2-options).
+
+You can also use the [`Repo.insert!`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert!/2) function which is similar to [`Repo.insert`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert/2) which will raise if the changeset is invalid or an error happens.
 
 Okay, let's try inserting a Challenge using the function we just created.
 
@@ -67,11 +71,16 @@ It should return the following tuple:
 
 Make note of that `Ecto.Association.NotLoaded` message. We will go over that later.
 
-Let's move on to reading records.
+Here are other functions Ecto provides out of the box to insert records:
+
+- [`Repo.insert_all`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert_all/3) for inserting many entries into the repository.
+- [`Repo.insert_or_update`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert_or_update/2) for updating or inserting a record into the repository. This is also a way of doing upserts.
+
+Let's move on to reading records from our repository.
 
 ## Reading Records
 
-Reading records is simple. Let's create a function to get a challenge by primary id inside the `Challenges` module. It will look something like this:
+Let's create a simple function inside the `Challenges` module to get a challenge by its primary id. Let's call it `get_challenge_by_id` and it will look something like this:
 
 ```elixir
 def get_challenge_by_id(id) do
@@ -80,7 +89,7 @@ def get_challenge_by_id(id) do
 end
 ```
 
-As you can see, this functions is fairly straightforward. We [`Repo.get`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:get/3) takes in our `Challenge` schema and the id. It returns the struct if there is a match, otherwise, `nil` will be returned.
+As you can see, this functions is fairly straightforward. The [`Repo.get`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:get/3) takes in our `Challenge` schema and the id. It returns the struct if there is a match, otherwise, `nil` will be returned.
 
 Let's give it a try.
 
@@ -111,17 +120,17 @@ It should return the following:
 }
 ```
 
-There are other ways of querying the database and Ecto does support custom queries. Here are some of the functions Ecto provides out of the box:
+There are other function for querying the database and Ecto does support custom queries but we will cover does later. Here are some of the functions Ecto provides out of the box:
 
 - [`Repo.one`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:one/2) for fetching a single result.
-- [`Repo.get_by`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:get_by/3) for fetching a single result by a given column.
+- [`Repo.get_by`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:get_by/3) for fetching a single result by a given column instead of the primary key.
 - [`Repo.all`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:all/2) for fetching all entries from a query.
 
 Let's move on the updating records.
 
 ## Updating Records
 
-Updating records is also simple. Let's start by the `update_challenge` function inside the `Challenges` module.
+Let's start by creating the `update_challenge` function inside the `Challenges` module.
 It will take in a `%Challenge` struct as the first argument and the updated fields as a map. Our function will look something like this:
 
 ```elixir
@@ -167,27 +176,34 @@ It should return a tuple `{:ok, struct}`:
 
 ## Deleting Records
 
-## Adding Relationships
-
-Now let's add a user with a credentials relationship.
-
-Let's define the `Accounts` module inside `getting_started_with_ecto/accounts/accounts.ex`. Inside of that module, we will define a function called `create_users_with_credentials` that takes one argument with a map as the default. In this function, we will validate the user and credentials and insert them both into the database. Here's how that looks like:
+Deleting records with Ecto is simple. Let's create the `delete_challenge` function inside our `Challenges` module. We will take a `%Challenge` struct or changeset as an argument and delete the record by calling the [`Repo.delete`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:delete/2). Here's what it looks like:
 
 ```elixir
-defmodule GettingStartedWithEcto.Accounts do
-  alias GettingStartedWithEcto.Accounts.{User, Credential}
-  alias GettingStartedWithEcto.Repo
-
-  def create_user_with_credentials(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Ecto.Changeset.cast_assoc(:credential, with: &Credential.changeset/2)
-    |> Repo.insert()
-  end
+def delete_challenge(%Challenge{} = challenge) do
+  challenge
+  |> Repo.delete()
 end
 ```
 
-> Notice the default map argument
+It returns `{:ok, struct}` if it succeeded or `{:error, changeset}` if there was an error.
 
-We first pass an empty `%User{}` struct and the `attrs` to the `User.changeset` function to validate our data.
-After that, we pipe the result to the [`cast_assoc`](https://hexdocs.pm/ecto/Ecto.Changeset.html#cast_embed/3). This function maps the `credential` association, runs the `Credential.changeset` function, and returns a changeset with our user and credentials. Lastly, we call `Repo.insert` which will insert the records into the database.
+What if we want to delete a record and we only have the id? We can do that by creating a struct with just the id field and passing it to the [`Repo.delete`](https://hexdocs.pm/ecto/Ecto.Repo.html#c:delete/2) function. Our function will look something like this:
+
+```elixir
+def delete_challenge(id) when is_integer(id) do
+  %Challenge{id: id}
+  |> Repo.delete()
+end
+```
+
+With the magic of pattern matching and guards, our function will take the id and delete the record.
+
+## One more thing
+
+One thing to note is that I used the Ecto functions that return tuples or `nil` but there are equivalent functions that raise errors instead. For example, there is a `Repo.get!` that raises an errors instead of returning a `nil`. There is also a `Repo.delete!` that raises an error instead of returning `{:error, changeset}`. Most of these functions end with a `!`, check out the [documentation](https://hexdocs.pm/ecto/Ecto.Repo.html#content) for more info.
+
+## Congratulations 🎉 🎉 🎉
+
+You just learned how to create, read, update, and delete records with Ecto. On the next post, we will cover how to write advanced queries along with how to insert records with relationships.
+
+Checkout the [source code](https://github.com/edgar971/getting_started_with_ecto/blob/master/lib/getting_started_with_ecto/challenges/challenges.ex) for reference or to see the the full module we created.
