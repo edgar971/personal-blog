@@ -1,6 +1,6 @@
 image: node:8.11.3
 
-pages:
+build-and-deploy:
   script:
     - npm install
     - npm run build
@@ -10,5 +10,17 @@ pages:
   cache:
     paths:
       - node_modules
+  only:
+    - master
+
+purge-cache: 
+  script:
+    curl -X POST \
+      https://api.cloudflare.com/client/v4/zones/71c9bd8afe5d090a95dad4560e3bb7a0/purge_cache \
+      -H 'Content-Type: application/json' \
+      -H 'X-Auth-Email: test' \
+      -H 'X-Auth-Key: 9714' \
+      -H 'cache-control: no-cache' \
+      -d '{"purge_everything":true}'
   only:
     - master
