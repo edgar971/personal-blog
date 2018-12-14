@@ -22,6 +22,6 @@ purge-cache:
   stage: purge-cache
   script:
     - env
-    - curl --fail -X POST https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_IDENTIFIER/purge_cache -H 'Content-Type:application/json' -H 'X-Auth-Email:$CLOUDFLARE_AUTH_EMAIL' -H 'X-Auth-Key:$CLOUDFLARE_AUTH_KEY' -H 'cache-control:no-cache' -d '{"purge_everything":true}'
+    - curl --fail -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_IDENTIFIER/purge_cache" -H "Content-Type:application/json" -H "X-Auth-Email:$CLOUDFLARE_AUTH_EMAIL" -H "X-Auth-Key:$CLOUDFLARE_AUTH_KEY" -H "cache-control:no-cache" -d '{"purge_everything":true}'
   only:
     - master
