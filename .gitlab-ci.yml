@@ -21,6 +21,6 @@ build-and-deploy:
 purge-cache:
   stage: purge-cache
   script:
-    - curl -X POST https://api.cloudflare.com/client/v4/zones/71c9bd8afe5d090a95dad4560e3bb7a0/purge_cache -H 'Content-Type:application/json' -H 'Postman-Token:ca2c862e-45fe-410b-a532-8f58e0987355' -H 'X-Auth-Email:wat@hotmail.com' -H 'X-Auth-Key:971' -H 'cache-control:no-cache' -d '{"purge_everything":true}'
+    - curl -X POST https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_IDENTIFIER/purge_cache -H 'Content-Type:application/json' -H 'X-Auth-Email:$CLOUDFLARE_AUTH_EMAIL' -H 'X-Auth-Key:$CLOUDFLARE_AUTH_KEY' -H 'cache-control:no-cache' -d '{"purge_everything":true}'
   only:
     - master
