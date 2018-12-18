@@ -1,11 +1,10 @@
 stages:
   - build
-  - deploy
-  # - purge-cache
+  - production
 
 build:
   image: node:8.14.0-jessie-slim
-  stage: build-and-deploy
+  stage: build
   script:
     - npm install
     - npm run build
