@@ -1,8 +1,9 @@
 stages:
-  - build-and-deploy
-  - purge-cache
+  - build
+  - deploy
+  # - purge-cache
 
-build-and-deploy-prod:
+build:
   image: node:8.14.0-jessie-slim
   stage: build-and-deploy
   script:
@@ -20,10 +21,36 @@ build-and-deploy-prod:
   only:
     - master
 
-purge-cache:
-  image: appropriate/curl
-  stage: purge-cache
+.production: &production_template
+  dependencies:
+    - build
+  stage: production
   script:
-    - curl --fail -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_IDENTIFIER/purge_cache" -H "Content-Type:application/json" -H "X-Auth-Email:$CLOUDFLARE_AUTH_EMAIL" -H "X-Auth-Key:$CLOUDFLARE_AUTH_KEY" -H "cache-control:no-cache" -d '{"purge_everything":true}'
+    - check_kube_domain
+    - install_dependencies
+    - download_chart
+    - ensure_namespace
+    - initialize_tiller
+    - create_secret
+    - deploy
+    - delete canary
+    - delete rollout
+    - persist_environment_url
+  environment:
+    name: production
+    url: http://$CI_PROJECT_PATH_SLUG.$AUTO_DEVOPS_DOMAIN
+  artifacts:
+    paths: [environment_url.txt]
+
+production:
+  <<: *production_template
   only:
-    - master
+    refs:
+      - master
+  except:
+    variables:
+      - $STAGING_ENABLED
+      - $CANARY_ENABLED
+      - $INCREMENTAL_ROLLOUT_ENABLED
+      - $INCREMENTAL_ROLLOUT_MODE
+      - $KUBECONFIG == null
