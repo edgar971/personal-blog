@@ -35,6 +35,8 @@
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.11.1",
     "gh-pages": "^1.2.0",
+    "husky": "^1.2.1",
+    "lint-staged": "^8.1.0",
     "prettier": "^1.14.2"
   },
   "homepage": "https://edgardev.com",
@@ -45,6 +47,17 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/edgar971/personal-blog.git"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "scripts": {
     "start": "gatsby develop",
