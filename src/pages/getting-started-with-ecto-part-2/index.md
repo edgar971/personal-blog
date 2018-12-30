@@ -7,6 +7,11 @@ date: '2018-10-12'
 
 Welcome to part two of Getting Started with Ecto. On the [last post](/getting-started-with-ecto-part-1/), we covered how to install and configure Ecto in our application. In this post we will cover migrations, schemas, and changesets in Ecto.
 
+1. [Installing and Configuring Ecto](/getting-started-with-ecto-part-1/)
+1. Migrations, Schemas, and Changesets (This Post)
+1. [CRUD operations](/getting-started-with-ecto-part-3/)
+1. [Advanced Queries](/getting-started-with-ecto-part-4/)
+
 ## Migrations
 
 Now that we have a database and Repo, we are going to create tables and columns. To do that, we will create migrations that define the structure of our tables and define any relationships. Before we create our first migration, let's look at the database design of our demo application.

@@ -5,6 +5,11 @@ date: '2018-12-12'
 
 Welcome to part three of Getting Started with Ecto. On the [last post](/getting-started-with-ecto-part-2/), we covered how to create migrations, schemas, and changesets. In this post, we will cover how to run CRUD operations against our Postgres database using Ecto.
 
+1. [Installing and Configuring Ecto](/getting-started-with-ecto-part-1/)
+1. [Migrations, Schemas, and Changesets](/getting-started-with-ecto-part-2/)
+1. CRUD operations (This Post)
+1. [Advanced Queries](/getting-started-with-ecto-part-4/)
+
 ## Ecto is not an ORM
 
 If you come from Ruby on Rails or .Net, you might be familiar with Active Record or Entity framework. You may be used to doing something like `user.Save()` or `User.Find()`. These and other frameworks follow the Active Record design pattern which is an approach of accessing data in a database. One of the major drawbacks of this pattern is that your domain is usually tightly coupled to a certain persistence layer. You probably will have hard time changing the type of database you are using.

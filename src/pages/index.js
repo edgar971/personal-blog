@@ -8,13 +8,22 @@ import Layout from '../components/layout'
 import { rhythm } from '../utils/typography'
 
 class BlogIndex extends React.Component {
+  getPosts() {
+    return get(this, 'props.data.allMarkdownRemark.edges')
+  }
+
+  getTitle() {
+    return get(this, 'props.data.site.siteMetadata.title')
+  }
+
+  getDescription() {
+    return get(this, 'props.data.site.siteMetadata.description')
+  }
+
   render() {
-    const siteTitle = get(this, 'props.data.site.siteMetadata.title')
-    const siteDescription = get(
-      this,
-      'props.data.site.siteMetadata.description'
-    )
-    const posts = get(this, 'props.data.allMarkdownRemark.edges')
+    const siteTitle = this.getTitle()
+    const siteDescription = this.getDescription()
+    const posts = this.getPosts()
 
     return (
       <Layout location={this.props.location}>

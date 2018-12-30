@@ -7,6 +7,11 @@ date: '2018-09-30'
 
 Welcome to part one of Getting Started with Ecto 3.0. This post is part of a series to teach you how to use Ecto. I will go over how to setup Ecto, create migrations and schemas, along with simple and more complicated queries. By the end of the series, you will be able to comfortably use Ecto with Postgres in your Elixir applications.
 
+1. Installing and Configuring Ecto (This Post)
+1. [Migrations, Schemas, and Changesets](/getting-started-with-ecto-part-2/)
+1. [CRUD operations](/getting-started-with-ecto-part-3/)
+1. [Advanced Queries](/getting-started-with-ecto-part-4/)
+
 ## What is Ecto?
 
 Ecto is a database package for Elixir applications. It is used for writing database queries and interacting with your database. With Ecto you can create migrations, define schemas, create and update records, and query your database. The current version supports PostgreSQL and MySQL. Support for MSSQL, SQLite, and MongoDB will be added in the future.
