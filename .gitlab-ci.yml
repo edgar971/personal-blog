@@ -2,6 +2,7 @@ image: node:8.14.0
 
 stages:
   - build-and-deploy
+  - purge-cache
 
 pages:
   stage: build-and-deploy
@@ -17,4 +18,14 @@ pages:
       - node_modules
   only:
     - master
+  environment:
+    name: production
+    url: https://edgardev.com
 
+purge-cache:
+  image: appropriate/curl
+  stage: purge-cache
+  script:
+    - curl --fail -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_IDENTIFIER/purge_cache" -H "Content-Type:application/json" -H "X-Auth-Email:$CLOUDFLARE_AUTH_EMAIL" -H "X-Auth-Key:$CLOUDFLARE_AUTH_KEY" -H "cache-control:no-cache" -d '{"purge_everything":true}'
+  only:
+    - master

@@ -71,16 +71,6 @@ class Template extends React.Component {
         >
           {header}
           {children}
-          <small
-            style={{
-              textAlign: 'center',
-              display: 'block',
-              margin: 'auto',
-              marginTop: rhythm(2),
-            }}
-          >
-            Build {this.getDate()}
-          </small>
         </div>
       </React.Fragment>
     )
