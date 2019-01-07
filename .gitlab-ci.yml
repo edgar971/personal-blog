@@ -18,9 +18,6 @@ build-and-deploy-prod:
       - node_modules
   only:
     - master
-  environment:
-    name: production
-    url: https://edgardev.com
 
 purge-cache:
   image: appropriate/curl
