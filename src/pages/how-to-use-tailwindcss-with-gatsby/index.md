@@ -59,4 +59,4 @@ This is the file I have required in the `gatsby-browser.js` file.
 
 ## That's it
 
-You should have Tailwind CSS working properly on your Gatsby site. Feel free to [check out the source code](https://gitlab.com/edgarpino/personal-blog) of this site for reference.
+You should have Tailwind CSS working properly on your Gatsby site. Feel free to [check out the source code](https://gitlab.com/edgarpino/personal-blog/tree/design-update) of this site for reference.
