@@ -3,7 +3,7 @@ image: node:8.14.0
 stages:
   - build-and-deploy
 
-build-and-deploy-prod:
+pages:
   stage: build-and-deploy
   script:
     - npm install
