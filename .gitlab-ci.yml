@@ -1,29 +1,15 @@
-stages:
-  - build-and-deploy
-  - purge-cache
+image: node:8
 
-build-and-deploy-prod:
-  image: node:8.11.3
-  stage: build-and-deploy
+pages:
   script:
-    - npm install
-    - npm run build
+  - npm install
+  - npm install gatsby-cli
+  - node_modules/.bin/gatsby build --prefix-paths
   artifacts:
     paths:
-      - public
+    - public
   cache:
     paths:
       - node_modules
-  environment:
-    name: production
-    url: https://edgardev.com
   only:
-    - master
-
-purge-cache:
-  image: appropriate/curl
-  stage: purge-cache
-  script:
-    - curl --fail -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_IDENTIFIER/purge_cache" -H "Content-Type:application/json" -H "X-Auth-Email:$CLOUDFLARE_AUTH_EMAIL" -H "X-Auth-Key:$CLOUDFLARE_AUTH_KEY" -H "cache-control:no-cache" -d '{"purge_everything":true}'
-  only:
-    - master
+  - master
