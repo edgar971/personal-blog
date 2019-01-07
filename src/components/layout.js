@@ -4,6 +4,10 @@ import { Link } from 'gatsby'
 import { rhythm, scale } from '../utils/typography'
 
 class Template extends React.Component {
+  getDate() {
+    const date = new Date()
+    return date.toLocaleString()
+  }
   render() {
     const { location, children } = this.props
     const rootPath = `${__PATH_PREFIX__}/`
@@ -67,6 +71,16 @@ class Template extends React.Component {
         >
           {header}
           {children}
+          <small
+            style={{
+              textAlign: 'center',
+              display: 'block',
+              margin: 'auto',
+              marginTop: rhythm(2),
+            }}
+          >
+            Build {this.getDate()}
+          </small>
         </div>
       </React.Fragment>
     )
