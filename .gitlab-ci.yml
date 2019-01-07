@@ -3,7 +3,7 @@ stages:
   - purge-cache
 
 build-and-deploy-prod:
-  image: node:8.14.0-jessie-slim
+  image: node:8.11.3
   stage: build-and-deploy
   script:
     - npm install
