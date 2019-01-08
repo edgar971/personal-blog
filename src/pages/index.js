@@ -9,7 +9,13 @@ import { rhythm } from '../utils/typography'
 
 class BlogIndex extends React.Component {
   getPosts() {
-    return get(this, 'props.data.allMarkdownRemark.edges')
+    const posts = get(this, 'props.data.allMarkdownRemark.edges')
+
+    if (process.env.NODE_ENV !== 'development') {
+      return posts.filter(({ node }) => this.isPublished(node))
+    }
+
+    return posts
   }
 
   getTitle() {
@@ -18,6 +24,14 @@ class BlogIndex extends React.Component {
 
   getDescription() {
     return get(this, 'props.data.site.siteMetadata.description')
+  }
+
+  isPublished(node) {
+    return get(node, 'frontmatter.published') === false ? false : true
+  }
+
+  buildTitle(node) {
+    return get(node, 'frontmatter.title') || node.fields.slug
   }
 
   render() {
@@ -34,9 +48,14 @@ class BlogIndex extends React.Component {
         />
         <Bio />
         {posts.map(({ node }) => {
-          const title = get(node, 'frontmatter.title') || node.fields.slug
+          const title = this.buildTitle(node)
           return (
-            <div key={node.fields.slug}>
+            <div
+              key={node.fields.slug}
+              className={
+                this.isPublished(node) ? 'post-published' : 'post-draft'
+              }
+            >
               <h3
                 style={{
                   marginBottom: rhythm(1 / 4),
@@ -74,6 +93,7 @@ export const pageQuery = graphql`
             slug
           }
           frontmatter {
+            published
             date(formatString: "DD MMMM, YYYY")
             title
           }

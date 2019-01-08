@@ -18,3 +18,8 @@ body {
 .gatsby-highlight + p {
   margin-top: 1rem;
 }
+
+.post-draft {
+  border-left: solid #ff5555 1em;
+  padding-left: 1em;
+}

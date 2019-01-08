@@ -8,12 +8,15 @@ import Layout from '../components/layout'
 import { rhythm, scale } from '../utils/typography'
 
 class BlogPostTemplate extends React.Component {
+  isPublished(node) {
+    return get(node, 'frontmatter.published') === false ? false : true
+  }
+
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
     const siteDescription = post.excerpt
     const { previous, next } = this.props.pageContext
-
     return (
       <Layout location={this.props.location}>
         <Helmet
@@ -21,7 +24,19 @@ class BlogPostTemplate extends React.Component {
           meta={[{ name: 'description', content: siteDescription }]}
           title={`${post.frontmatter.title} | ${siteTitle}`}
         />
-        <h1>{post.frontmatter.title}</h1>
+        {!this.isPublished(post) && (
+          <h3
+            style={{
+              textAlign: 'center',
+              backgroundColor: '#ff5555',
+              padding: rhythm(0.25),
+              color: 'white',
+            }}
+          >
+            Draft
+          </h3>
+        )}
+        <h1> {post.frontmatter.title}</h1>
         <p
           style={{
             ...scale(-1 / 5),
@@ -89,6 +104,7 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
+        published
         date(formatString: "MMMM DD, YYYY")
       }
     }
