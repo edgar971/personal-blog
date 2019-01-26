@@ -3,6 +3,14 @@ title: 'Today I Learned'
 date: '2019-01-09'
 ---
 
+### 2019-01-26
+
+- How Support Vector Machines work:
+  1. [Support Vector Machine — Introduction to Machine Learning Algorithms](https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47)
+  1. [Chapter 2 : SVM (Support Vector Machine) — Theory](https://medium.com/machine-learning-101/chapter-2-svm-support-vector-machine-theory-f0812effc72)
+
+---
+
 ### 2019-01-14
 
 #### Clean Git Repository with Tracked and Untracked file
