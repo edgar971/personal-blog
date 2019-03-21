@@ -3,6 +3,24 @@ title: 'Today I Learned'
 date: '2019-01-09'
 ---
 
+### 2019-03-14
+
+#### How to split a CSV file using `split`
+
+`split` is a Unix command used to split a file into pieces. It can be used like this:
+
+```bash
+split -l 100000 large.csv segment
+```
+
+The command above splits a file with a limit of 100k lines each. If the file is 300k then it will create 3 files.
+
+You can also use a maximum number of bytes by using the `-b` flag:
+
+```bash
+split -b 40k large.csv segment
+```
+
 ### 2019-01-26
 
 - How Support Vector Machines work:
