@@ -3,6 +3,17 @@ title: 'Today I Learned'
 date: '2019-01-09'
 ---
 
+### 2019-03-23
+
+#### Markov models
+
+A Markov model is a stochastic model used to model randomly changing systems where it is assumed that future states depend only on the current state not on the events that occurred before it (that is, it assumes the Markov property). Generally, this assumption enables reasoning and computation with the model that would otherwise be intractable.
+
+- [From “What is a Markov Model” to “Here is how Markov Models Work”](https://hackernoon.com/from-what-is-a-markov-model-to-here-is-how-markov-models-work-1ac5f4629b71)
+- [Markov model](https://en.wikipedia.org/wiki/Markov_model)
+
+---
+
 ### 2019-03-14
 
 #### How to split a CSV file using `split`
@@ -20,6 +31,8 @@ You can also use a maximum number of bytes by using the `-b` flag:
 ```bash
 split -b 40k large.csv segment
 ```
+
+---
 
 ### 2019-01-26
 
