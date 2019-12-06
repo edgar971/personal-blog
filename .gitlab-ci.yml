@@ -35,9 +35,9 @@ deployment-alert:
   image: appropriate/curl
   stage: deployment-alert
   script:
-    -  curl -X POST --data-urlencode "payload={\"channel\": \"#alerts\", \"username\":\ \"gitlab\", \"text\":\ \"Personal blog was deployed https://edgardev.com.\", \"icon_emoji\":\ ":ghost:\"}" https://hooks.slack.com/services/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
+    -  curl --fail -X POST "https://hooks.slack.com/services/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" -H "Content-Type:application/json"  -d '{"channel":"#alerts","username":"webhookbot","text":"This is posted to #alerts and comes from a bot named webhookbot.","icon_emoji":":ghost:"}'
   only:
     - master
-    
+
 
 
