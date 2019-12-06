@@ -46,7 +46,7 @@
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/edgar971/personal-blog.git"
+    "url": "git@gitlab.com:edgarpino/personal-blog.git"
   },
   "husky": {
     "hooks": {
