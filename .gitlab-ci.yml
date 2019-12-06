@@ -35,7 +35,7 @@ deployment-alert:
   image: appropriate/curl
   stage: deployment-alert
   script:
-    -  curl --fail -X POST "$SLACK_WEBHOOK_URL" -H "Content-Type:application/json"  -d '{"channel":"#alerts","username":"webhookbot","text":"Personal Blog Deployed successfully.","icon_emoji":":ghost:"}'
+    -  curl --fail -X POST "$SLACK_WEBHOOK_URL" -H "Content-Type:application/json"  -d '{"channel":"#alerts","username":"GitlabCI","text":"Personal Blog Deployed successfully.","icon_emoji":":ghost:"}'
   only:
     - master
 
