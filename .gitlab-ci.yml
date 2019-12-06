@@ -3,6 +3,7 @@ image: node:8.14.0
 stages:
   - build-and-deploy
   - purge-cache
+  - deployment-alert
 
 pages:
   stage: build-and-deploy
@@ -29,3 +30,14 @@ purge-cache:
     - curl --fail -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_IDENTIFIER/purge_cache" -H "Content-Type:application/json" -H "X-Auth-Email:$CLOUDFLARE_AUTH_EMAIL" -H "X-Auth-Key:$CLOUDFLARE_AUTH_KEY" -H "cache-control:no-cache" -d '{"purge_everything":true}'
   only:
     - master
+
+deployment-alert:
+  image: appropriate/curl
+  stage: deployment-alert
+  script:
+    -  curl -X POST --data-urlencode "payload={\"channel\": \"#alerts\", \"username\": \"gitlab\", \"text\": \"Personal blog was deployed https://edgardev.com.\", \"icon_emoji\": \":ghost:\"}" https://hooks.slack.com/services/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
+  only:
+    - master
+    
+
+
