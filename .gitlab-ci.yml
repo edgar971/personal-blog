@@ -1,4 +1,4 @@
-image: node:8.14.0
+image: node:12.18.2
 
 stages:
   - build-and-deploy
