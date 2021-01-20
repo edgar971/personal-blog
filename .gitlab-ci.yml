@@ -1,11 +1,10 @@
-image: node:12.18.2
-
 stages:
   - build-and-deploy
   - purge-cache
   - deployment-alert
 
 pages:
+  image: node:12.18.2
   stage: build-and-deploy
   script:
     - npm install
@@ -13,9 +12,6 @@ pages:
   artifacts:
     paths:
       - public
-  # cache:
-  #   paths:
-  #     - node_modules
   only:
     - master
   environment:
