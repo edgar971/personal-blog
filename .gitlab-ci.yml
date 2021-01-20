@@ -9,7 +9,6 @@ pages:
   stage: build-and-deploy
   script:
     - npm install
-    - npm install gatsby-cli
     - node_modules/.bin/gatsby build --prefix-paths
   artifacts:
     paths:
