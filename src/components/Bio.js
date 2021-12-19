@@ -28,7 +28,7 @@ class Bio extends React.Component {
           }}
         />
         <p>
-          Machine Learning Engineer @Pluralsight. Interested in distributed
+          Sr. Machine Learning Engineer @Pluralsight. Interested in distributed
           systems, machine learning, and the web.{' '}
           <a href="https://twitter.com/edgar971">Follow me on Twitter.</a>
         </p>

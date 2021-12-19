@@ -3,12 +3,12 @@ stages:
   - purge-cache
   - deployment-alert
 
-pages:
-  image: node:12.18.2
+build-deploy:
+  image: node:12.22.8
   stage: build-and-deploy
   script:
-    - npm install
-    - node_modules/.bin/gatsby build --prefix-paths
+    - yarn install
+    - yarn gatsby build --prefix-paths
   artifacts:
     paths:
       - public
