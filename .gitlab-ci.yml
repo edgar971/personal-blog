@@ -1,5 +1,5 @@
 stages:
-  - build-and-deploy
+  - deploy
   - purge-cache
   - deployment-alert
 
@@ -12,9 +12,9 @@ cache:
     - .cache/
     - public/
 
-build-deploy:
+pages:
   image: node:12.22.8
-  stage: build-and-deploy
+  stage: deploy
   environment:
     name: production
     url: https://edgardev.com
