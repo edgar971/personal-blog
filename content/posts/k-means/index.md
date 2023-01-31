@@ -10,7 +10,6 @@ Some of the use cases for K-Means are:
 
 - Pattern recognition
 - Classification analysis
-- Artificial Intelligence
 - Image processing
 - Machine vision
 
