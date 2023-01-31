@@ -1,7 +1,7 @@
 ---
 title: 'Moving my blog to Gatsby.js'
 date: '2018-09-20'
-path: 'moving-my-blog-to-gatsby-js'
+slug: 'moving-my-blog-to-gatsby-js'
 ---
 
 Today, I decided to move my personal blog from Ghost to Gatsby.js and I love it.

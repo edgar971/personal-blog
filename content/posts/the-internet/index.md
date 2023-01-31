@@ -1,7 +1,7 @@
 ---
 title: 'A Brief History of the Internet'
 date: '2015-01-11'
-path: '/2015/01/11/the-internet-the-web-and-security/'
+slug: '/2015/01/11/the-internet-the-web-and-security/'
 ---
 
 Throughout history, never has it been an invention that would revolutionize the way people communicate and share information. People went from having to go through a lengthy process of compiling information to having it instantly and at the tips of their fingers. The World Wide Web is considered one of the greatest achievements next to invention of the printing press by Johannes Gutenberg in 1440. Today, people heavily rely on this technology as hours upon hours are spent by an individual to communicate with loved ones via social networks, store files online, work, and more. People don’t realize what the implications of relying on these services are and what information and data are being gathered from them.

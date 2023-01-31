@@ -1,7 +1,7 @@
 ---
 title: 'Heroku 16 Imagemagick Buildpack'
 date: '2018-04-08'
-path: '/2018/04/08/imagemagick-heroku-buildpack'
+slug: '/2018/04/08/imagemagick-heroku-buildpack'
 ---
 
 ## Problem

@@ -1,7 +1,7 @@
 ---
 title: 'See how many files are in each directory for a give directory'
 date: '2017-06-07'
-path: '/2017/06/07/see-how-many-files-are-in-each-directory-for-a-give-directory'
+slug: '/2017/06/07/see-how-many-files-are-in-each-directory-for-a-give-directory'
 ---
 
 ### Problem

@@ -1,7 +1,7 @@
 ---
 title: 'Machine and Deep Learning Tools You Should Be Using'
 date: '2017-08-21'
-path: '/2017/08/21/machine-and-deep-learning-tools-you-should-be-using/'
+slug: '/2017/08/21/machine-and-deep-learning-tools-you-should-be-using/'
 ---
 
 I've come across various tools used for machine and deep learning, both good and bad. I decided to write a quick little blog post on some of the tools machine and deep learning you should be using.

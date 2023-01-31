@@ -1,7 +1,7 @@
 ---
 title: 'Basic Authentication with Lumen'
 date: '2016-02-02'
-path: '/2016/02/02/basic-authentication-with-lumen-2'
+slug: '/2016/02/02/basic-authentication-with-lumen-2'
 ---
 
 #### The Problem

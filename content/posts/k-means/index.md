@@ -1,7 +1,7 @@
 ---
 title: 'Understading K-Means'
 date: '2017-08-23'
-path: '/2017/08/23/understading-k-means'
+slug: '/2017/08/23/understading-k-means'
 ---
 
 K-means is a clustering algorithm used to categorize data that is unlabeled. It is a type of unsupervised learning (data without categories or groups). The goal is simply to find the groups in the data defined by K. The algorithm works by iteratively assigning each data point to one of the K groups based on the features provided.

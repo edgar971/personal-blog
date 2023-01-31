@@ -1,7 +1,7 @@
 ---
 title: 'Resizing Images In Elixir with Mogrify'
 date: '2018-04-08'
-path: '/2018/04/08/resizing-images-in-elixir'
+slug: '/2018/04/08/resizing-images-in-elixir'
 ---
 
 I've been working on a simple Elixir and Phoenix web app that [extracts text found in images](https://image-to-text.edgardev.com/) and I ran into a problem, people were uploading large images. I only needed images that were around 1200x1200 pixels.
@@ -40,7 +40,7 @@ Mogrify is simple and easy to use and the only requirement is to have ImageMagic
      frame_count: 1,
      height: nil,
      operations: [],
-     path: "img_to_txt/test/assets/test.png",
+     slug: "img_to_txt/test/assets/test.png",
      width: nil
    }
    ```

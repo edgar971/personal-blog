@@ -1,7 +1,7 @@
 ---
 title: 'How To SSH Into Docker Container'
 date: '2017-06-06'
-path: '/2017/06/06/how-to-ssh-into-docker-container/'
+slug: '/2017/06/06/how-to-ssh-into-docker-container/'
 ---
 
 ### Problem
