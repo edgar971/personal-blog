@@ -7,47 +7,23 @@ tags:
   - tools
 ---
 
-I've been using dev containers for about 6 months now in my day-to-day work and I've found them to be a great way to improve my workflow. In this post, I'll discuss how I use dev containers, what's worked well, and what hasn't.
+After using dev containers for the past 6 months in my daily work, I can confidently say that they have been an incredible asset in improving my workflow. In this post, I will share my personal experience of using dev containers, including what has worked well and what hasn't.
 
-## What are dev containers?
+To start, dev containers are a way of creating a consistent development environment for software development. These environments are lightweight, portable, and self-contained, and can be run on a developer's local machine or in the cloud. Essentially, dev containers aim to solve the issue of "it works on my machine" by providing a uniform development environment.
 
-Let's start by defining what dev containers are. 
+One of the main advantages of using dev containers is that they can be defined using configuration files, which can be shared and reused across different projects or teams. They can also be version-controlled, making it easy to track changes and ensure that all developers are using the same version of the development environment.
 
-They are a way of creating a consistent development environment for software development. They are lightweight, portable, and self-contained environments that can be run on a developer's local machine or in the cloud (more on this later). A dev container basically aims to solve the problem of "it works on my machine" by providing a consistent development environment.
+It's worth noting that dev containers are not just for software development; they can also be used for machine learning and data science. In fact, one of the biggest advantages of using dev containers for machine learning and data science is that they allow you to easily run your code on powerful hardware, such as GPUs, in the cloud.
 
-Better yet, dev containers can be defined using configuration files, and they can be shared and reused across different projects or teams. They can also be version-controlled, which allows for easy tracking of changes and ensures that all developers are using the same version of the development environment.
+My personal experience of using dev containers has been overwhelmingly positive, particularly for machine learning projects that require a consistent and reproducible development environment. One of the most significant benefits has been the consistency provided by dev containers, which allows for easy replication and sharing of environments across multiple team members. This helps to ensure that everyone is using the same libraries, dependencies, and configuration settings, reducing the risk of compatibility issues and facilitating collaboration.
 
+Another advantage of dev containers is the isolation they provide for development. This helps to prevent conflicts between different software versions and dependencies, which can be especially important when working with different machine learning frameworks or libraries. Additionally, dev containers are highly portable, which makes it easy to move projects between different machines or cloud instances, providing access to powerful hardware.
 
-## What about machine learning or data science?
+While there is certainly a learning curve associated with using dev containers, the benefits are well worth the initial setup and configuration. There is also the added complexity of managing multiple containers, which can be a bit of a hassle when working on multiple projects simultaneously.
 
-Dev containers are not just for software development. They can be used for any type of development, including machine learning and data science. 
+## Conclusion
 
-The biggest advantage of using dev containers for machine learning and data science is that they allow you to easily run your code on a GPU or high-end hardware on the cloud. This is especially useful if you're working on a model or project that requires a lot of compute power. This is called a remote dev container and it's all integrated into VS Code. 
-
-## My personal experience
-
-My overall experience of using dev containers has been positive so far, especially for machine learning projects that require a consistent and reproducible development environment. 
-
-1. **Consistency**: Dev containers provide a consistent development environment that can be easily replicated and shared across multiple team members. This helps to ensure that everyone is using the same libraries, dependencies, and configuration settings, reducing the risk of compatibility issues and making it easier to collaborate.
-
-2. **Isolation**: Dev containers provide an isolated environment for development, which helps to prevent conflicts between different software versions and dependencies. This can help to avoid issues that can arise when working with different machine learning frameworks or libraries. Especially with Python, where there are many different versions of the same library, and different versions of the same library can be incompatible with each other.
-
-3. Portability: Dev containers are highly portable and can be easily moved between different machines or cloud instances. This makes it easy to move projects between your laptop and the cloud to access powerful hardware.
-
-There is however, a learning curve. Using dev containers requires some initial setup and configuration, which can result in some slow down and overall headaches, especially if you are new to Docker or VS Code.
-
-There's also the added complexity of having to manage multiple containers, which can be a bit of a pain if you're working on multiple projects at the same time. 
-
-## How can you start using dev containers?
-
-If you're interested in using dev containers, I recommend starting with the [official documentation](https://containers.dev/). It's a great resource that provides a lot of useful information and examples. 
-
-Start with a simple project and try to get it working with a dev container. Once you have that working, you can start to add your own customizations and configurations. 
-
-## What's next?
-
-Github Codespaces! It's relatively new feature that allows you to create cloud-based development environments for your code repositories. They provide a fully configured, browser or local VS Code development environment that can be accessed from anywhere. 
-
+If you're interested in using dev containers, I recommend starting with the official documentation, which provides a wealth of useful information and examples. Starting with a simple project and working your way up to more complex configurations is an excellent way to get started. Finally, keep an eye out for new features like Github Codespaces, which allow you to create cloud-based development environments for your code repositories, providing fully configured VS Code development environments that can be accessed from anywhere.
 
 
 
