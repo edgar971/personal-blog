@@ -1,4 +1,4 @@
-## Setup
+## Personal Blog
 
 #### Prerequisites
 1. Node.js must be installed on your system.
