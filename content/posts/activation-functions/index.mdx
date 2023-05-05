@@ -1,0 +1,27 @@
+---
+title: Activation Functions
+date: '2023-05-04'
+---
+
+Activation functions are mathematical functions that are used in artificial neural networks to introduce non-linearity in the output of a neuron. In simpler terms, they help the neural network to make complex decisions by transforming the input data into a more expressive form that can be easily interpreted by the succeeding layers of the network.
+
+In a neural network, a neuron receives input signals from the preceding layer, multiplies them with their corresponding weights, and then sums them up to produce an output signal. This output signal is then passed through an activation function which introduces non-linearity in the output of the neuron. Without an activation function, a neural network would simply be a linear regression model and would not be able to learn complex patterns in the data.
+
+Here are some of the key benefits:
+
+1. Non-linearity: Activation functions introduce non-linearity in the output of a neuron, allowing the neural network to learn complex patterns in the data. Without non-linearity, a neural network would be limited to learning linear patterns in the data.
+2. Gradient Descent: Activation functions are differentiable, which is essential for the training of neural networks using gradient descent algorithms. During backpropagation, the derivative of the activation function is used to update the weights of the network, which helps to minimize the error in the output of the network.
+3. Normalization: Some activation functions, such as Batch Normalization, help to normalize the output of the neuron, making it easier to train deep neural networks with many layers.
+4. Sparsity: Activation functions like ReLU (Rectified Linear Unit) introduce sparsity in the output of the neuron, which can help to reduce overfitting in the network by encouraging the network to learn more meaningful features in the data.
+5. Computationally efficient: Activation functions are typically simple mathematical functions that are computationally efficient to evaluate, making them ideal for use in large-scale neural networks.
+
+
+Some common activation functions used in neural networks include:
+
+1. Sigmoid: The sigmoid function is a popular activation function that maps the output of a neuron to a value between 0 and 1. It is often used in binary classification problems.
+2. ReLU (Rectified Linear Unit): The ReLU function maps the output of a neuron to 0 if the output is negative, and to the output value if it is positive. ReLU is one of the most popular activation functions because of its simplicity and effectiveness.
+3. Tanh (Hyperbolic Tangent): The Tanh function maps the output of a neuron to a value between -1 and 1. It is similar to the sigmoid function but is symmetric around the origin.
+4. Softmax: The softmax function is often used in the output layer of a neural network for multi-class classification problems. It maps the output of a neuron to a probability distribution over the classes.
+
+In conclusion, activation functions are an essential component of neural networks that introduce non-linearity in the output of a neuron. They are computationally efficient, help to normalize the output of the network, and encourage the network to learn more meaningful features in the data.
+
