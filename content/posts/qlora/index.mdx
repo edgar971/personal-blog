@@ -1,0 +1,50 @@
+---
+title: "Efficiency and Effectiveness: QLoRA Method for Large Language Model Fine-Tuning"
+date: '2023-09-14'
+---
+
+### What is Fine-tuning
+
+Fine-tuning refers to the process of taking a pre-trained model and further training it on a specific task or dataset to adapt it for that particular task. It's a common technique in transfer learning, where knowledge learned from one task or domain is applied to another related task.
+
+**The overall process:**
+
+1. **Pre-training**: This usually involves training a large language model on a massive corpus of text data. During this pre-training phase, the model learns to predict the next word in a sentence based on the context provided by the preceding words. This process helps the model capture a broad range of linguistic patterns, grammar, and general knowledge.
+2. **Our base model** is now a powerful language generation tool but may not be suitable for specific NLP tasks.
+3. **Fine-tuning starts** by taking the pre-trained base model and continuing the training process on a smaller, task-specific dataset. This dataset contains examples and labels relevant to the target task you want the model to perform, such as text classification, translation, summarization, or question-answering.
+
+Our fine-tuned model learns to adapt its knowledge to perform well on the target task while retaining the valuable general features it learned during pre-training.
+
+**Benefits**:
+
+- **Efficiency**: Fine-tuning is more computationally efficient than training a language model from scratch since the model already understands language.
+- **Improved Task Performance**: Fine-tuned models typically outperform generic language models on specific NLP tasks.
+- **Versatility**: Pre-trained LLMs can be fine-tuned for a wide range of applications.
+
+**Cons**:
+
+Resource-intensive, requiring significant computational power to manage optimizer states and gradients. For example, the optimizer states and gradients usually result in a memory footprint approximately 12 times larger than the model itself. This makes fine-tuning even the smallest Llama-2 with 7 billion parameters a substantial computational undertaking and about **84 GB** of VRAM.
+
+This is where the Quantization and Low-Rank Adapters (QLoRA) method helps.
+
+### QLoRA
+
+QLoRA, which stands for "Quantization and Low-Rank Adapters," is a method designed for fine-tuning large language models such as Llama 2 with a focus on reducing memory and computational requirements while maintaining or even improving model performance. QLoRA is particularly useful when fine-tuning large models on hardware with limited GPU memory.
+
+This process combines two different methods:
+
+**Quantization**
+
+We first start by quantizing the base LLM. Quantization is the process of reducing the precision of numerical values in the model's weights. In QLoRA, the base model is quantized to a lower bit representation, typically 4 bits. This significantly reduces the memory required to store the model's weights.
+
+Additionally, QLoRA employs a technique called "double quantization" to mitigate the negative effects of quantization. While the model is quantized to a very low bit-width (4 bits), it is temporarily dequantized to a higher bit (typically 16 bits) during forward and backward passes to maintain accuracy. This allows for efficient training while still benefiting from a compact model representation.
+
+**Low-ranked Adapters**
+
+The idea of low-rank involves fine-tuning only a subset of the model's parameters instead of the entire model. Specifically, QLoRA focuses on adapting the parameters related to the attention mechanism in the model, such as the query (Q), key (K), and value (V) weight matrices.
+
+The overall idea is to freeze the pre-trained model weights and train an additional weight matrix for a downstream task without sacrificing crucial information. Not only do we get a significant decrease in the number of trainable parameters, but we are also not training the other weights in the model. In most cases, only 1% of the total parameters are being trained.
+
+This approach also means we can share the same base model and apply the low-ranked adapters trained on different downstream tasks.
+
+With this approach, we can fine-tune Llama-2 7B using ~14GB of VRAM, a significant reduction from the previously mentioned 84 GB.
